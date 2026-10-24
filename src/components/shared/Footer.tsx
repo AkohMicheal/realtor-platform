@@ -1,12 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import {
   MessageCircle,
-  Instagram,
   AtSign,
   Mail,
   ShieldCheck,
   MapPin,
 } from 'lucide-react';
+import { InstagramIcon } from '@/components/ui/InstagramIcon';
 
 const quickLinks = [
   { href: '/properties', label: 'Properties' },
@@ -18,29 +20,29 @@ const quickLinks = [
 
 const socialLinks = [
   {
-    href: 'https://wa.me/2348000000000',
+    href: 'https://wa.me/2348100915397',
     label: 'WhatsApp',
     icon: MessageCircle,
   },
   {
-    href: 'https://instagram.com/vesthaven',
+    href: 'https://instagram.com/marirealty',
     label: 'Instagram',
-    icon: Instagram,
+    icon: InstagramIcon,
   },
   {
-    href: 'https://x.com/vesthaven',
+    href: 'https://x.com/marirealty',
     label: 'X (Twitter)',
     icon: AtSign,
   },
   {
-    href: 'mailto:info@vesthaven.com',
+    href: 'mailto:info@marirealty.com',
     label: 'Email',
     icon: Mail,
   },
 ];
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = 2026;
 
   return (
     <footer className="bg-[#0B192C] text-white">
@@ -51,7 +53,7 @@ export function Footer() {
           <div className="space-y-6">
             <Link href="/" className="inline-block">
               <span className="font-heading text-2xl font-bold tracking-tight">
-                Vest<span className="text-[#D4AF37]">Haven</span> Realty
+                <span className="text-[#D4AF37]">Mari</span>Realty
               </span>
             </Link>
             <p className="max-w-sm text-sm leading-relaxed text-slate-300">
@@ -122,11 +124,11 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
             <p className="text-xs text-slate-400">
-              &copy; {currentYear} VestHaven Realty. All rights reserved.
+              &copy; {currentYear} MariRealty. All rights reserved.
             </p>
             <p className="max-w-lg text-[10px] leading-relaxed text-slate-500">
               Investment in real estate involves risks. Past performance does not guarantee
-              future results. VestHaven Realty is a registered real estate advisory firm and
+              future results. MariRealty is a registered real estate advisory firm and
               does not provide financial advice. Please conduct independent due diligence
               before making any investment decisions.
             </p>

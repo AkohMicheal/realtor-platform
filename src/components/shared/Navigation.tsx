@@ -61,8 +61,8 @@ export function Navigation() {
               isScrolled ? 'text-[#0B192C]' : 'text-white'
             )}
           >
-            Vest
-            <span className="text-[#D4AF37]">Haven</span>
+            Mari
+            <span className="text-[#D4AF37]">Realty</span>
           </span>
         </Link>
 
@@ -147,7 +147,7 @@ export function Navigation() {
           {/* Drawer Header */}
           <div className="flex items-center justify-between border-b border-[#E2E8F0] px-6 py-4">
             <span className="font-heading text-lg font-bold text-[#0B192C]">
-              Vest<span className="text-[#D4AF37]">Haven</span>
+              Mari<span className="text-[#D4AF37]">Realty</span>
             </span>
             <button
               type="button"

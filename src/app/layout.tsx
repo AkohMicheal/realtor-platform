@@ -16,8 +16,8 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Mary Realty — Secure Real Estate Investments in Lagos",
-    template: "%s | Mary Realty",
+    default: "MariRealty — Secure Real Estate Investments in Lagos",
+    template: "%s | MariRealty",
   },
   description:
     "Lagos-based real estate advisory and RECB cooperative investment platform. Licensed under Lagos State Cooperative LSCS 18176. Secure land banking, cashback investments, and verified property listings.",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_NG",
-    siteName: "Mary Realty",
+    siteName: "MariRealty",
   },
 };
 

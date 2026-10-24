@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import imageUrlBuilder from '@sanity/image-url';
-import { client } from '@/lib/sanity/client';
+import { client, isSanityConfigured } from '@/lib/sanity/client';
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { cn } from '@/lib/utils';
 
@@ -35,7 +35,7 @@ export function SafeSanityImage({
   priority = false,
   className,
 }: SafeSanityImageProps) {
-  if (!imageSource || !imageSource.asset || !imageSource.asset._ref) {
+  if (!imageSource || !imageSource.asset || !imageSource.asset._ref || !isSanityConfigured) {
     return (
       <MediaPlaceholder
         type="image"
