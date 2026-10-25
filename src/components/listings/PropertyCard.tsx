@@ -49,23 +49,33 @@ export function PropertyCard({ property }: PropertyCardProps) {
           </span>
         </div>
 
-        {/* Title Type Tag */}
-        {property.titleType && (
-          <div className="absolute bottom-3 left-3 z-10">
+        {/* Title Type Tag & Legal Status */}
+        <div className="absolute bottom-3 left-3 z-10 flex flex-wrap gap-1.5">
+          {property.titleType && (
             <span className="inline-flex items-center gap-1 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white shadow">
               <ShieldCheck className="h-3 w-3 text-[#D4AF37]" /> {property.titleType}
             </span>
-          </div>
-        )}
+          )}
+          {property.titleStatus && (
+            <span className="inline-flex items-center gap-1 rounded-md bg-[#10B981]/90 backdrop-blur-sm px-2 py-0.5 text-[10px] font-bold text-white shadow">
+              {property.titleStatus}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        {/* Category */}
+        {/* Category & Payment Badge */}
         <div className="flex items-center justify-between text-xs text-[#94A3B8]">
           <span className="font-semibold uppercase tracking-wider text-[#C5A059]">
             {categoryLabels[property.category] || property.category}
           </span>
+          {property.paymentTiers && property.paymentTiers.length > 1 && (
+            <span className="rounded bg-[#D4AF37]/10 px-2 py-0.5 text-[10px] font-semibold text-[#C5A059]">
+              Flexible Installments
+            </span>
+          )}
         </div>
 
         {/* Title */}
@@ -80,6 +90,24 @@ export function PropertyCard({ property }: PropertyCardProps) {
           <MapPin className="h-3.5 w-3.5 shrink-0 text-[#D4AF37]" />
           <span className="line-clamp-1">{property.location}</span>
         </div>
+
+        {/* Financial Highlights: Deposit & Installment */}
+        {(property.initialDeposit || property.monthlyInstallment) && (
+          <div className="mt-3 grid grid-cols-2 gap-2 rounded-xl bg-[#F8F9FA] border border-[#E2E8F0] p-2.5 text-xs">
+            {property.initialDeposit && (
+              <div>
+                <span className="block text-[10px] text-[#94A3B8] font-medium">Initial Deposit</span>
+                <span className="font-bold text-[#0B192C]">{formatNaira(property.initialDeposit)}</span>
+              </div>
+            )}
+            {property.monthlyInstallment && (
+              <div>
+                <span className="block text-[10px] text-[#94A3B8] font-medium">Est. Monthly</span>
+                <span className="font-bold text-[#0B192C]">{formatNaira(property.monthlyInstallment)}</span>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Amenities Preview */}
         {property.amenities && property.amenities.length > 0 && (

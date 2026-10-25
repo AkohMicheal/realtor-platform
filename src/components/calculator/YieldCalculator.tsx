@@ -3,25 +3,36 @@
 import { useState, useId, useEffect } from 'react';
 import { formatNaira, generateWhatsAppLink } from '@/lib/utils';
 import { trackCalculatorUsed, trackWhatsAppClick } from '@/lib/tracking';
-import { Calculator, ShieldCheck, ArrowRight, FileCheck, CheckCircle2 } from 'lucide-react';
+import { SITE_CONFIG } from '@/lib/constants';
+import {
+  Calculator,
+  ShieldCheck,
+  ArrowRight,
+  FileCheck,
+  CheckCircle2,
+  AlertCircle,
+  Percent,
+  Sparkles,
+} from 'lucide-react';
 
 const TENURE_OPTIONS = [6, 12, 18, 24] as const;
 type Tenure = (typeof TENURE_OPTIONS)[number];
 
-// Tier-based rates annualized
-function getAnnualRate(principal: number): number {
-  if (principal < 5_000_000) return 20;
-  if (principal < 15_000_000) return 25;
-  if (principal < 50_000_000) return 30;
-  return 35;
-}
+const RATE_PRESETS = [
+  { label: '25% Standard', rate: 25 },
+  { label: '28% Growth', rate: 28 },
+  { label: '33% Elite', rate: 33 },
+  { label: '37% Active Promo', rate: 37, isPromo: true },
+];
 
 export function YieldCalculator() {
   const [principal, setPrincipal] = useState<number>(5_000_000);
   const [tenure, setTenure] = useState<Tenure>(12);
+  const [annualRate, setAnnualRate] = useState<number>(37); // Default to active 37% promo cycle
+  const [isCustomRate, setIsCustomRate] = useState<boolean>(false);
   const sliderId = useId();
+  const rateSliderId = useId();
 
-  const annualRate = getAnnualRate(principal);
   // Total Payout = Principal + (Principal × R/100 × T/12)
   const cashbackProfit = Math.round(principal * (annualRate / 100) * (tenure / 12));
   const totalPayout = principal + cashbackProfit;
@@ -50,8 +61,13 @@ export function YieldCalculator() {
     trackCalculatorUsed(principal, t);
   };
 
-  const whatsappPhone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348000000000';
-  const whatsappMsg = `Hi, I am interested in the RECB Cashback Plan from your website calculator.\n\n• Capital: ${formatNaira(principal)}\n• Tenure: ${tenure} Months\n• Projected Returns: ${formatNaira(cashbackProfit)} (${annualRate}% p.a.)\n• Expected Total Payout: ${formatNaira(totalPayout)}\n• Target Maturity: ${maturityDateStr}\n\nPlease share verified scheme details and documentation.`;
+  const handleRateChange = (r: number) => {
+    setAnnualRate(r);
+    trackCalculatorUsed(principal, tenure);
+  };
+
+  const whatsappPhone = SITE_CONFIG.phone;
+  const whatsappMsg = `Hi Mary Akoh (MariRealty), I am interested in the RECB Cashback Plan from your website calculator.\n\n• Capital: ${formatNaira(principal)}\n• Tenure: ${tenure} Months\n• Annual Yield Rate: ${annualRate}% p.a.\n• Projected Cashback Dividend: ${formatNaira(cashbackProfit)}\n• Expected Total Payout: ${formatNaira(totalPayout)}\n• Target Maturity: ${maturityDateStr}\n\nPlease share the active monthly promotional circular and legal verification packet.`;
   const whatsappUrl = generateWhatsAppLink(whatsappPhone, whatsappMsg);
 
   return (
@@ -59,7 +75,8 @@ export function YieldCalculator() {
       {/* Decorative gradient bar */}
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#0B192C] via-[#D4AF37] to-[#10B981]" />
 
-      <div className="flex items-center justify-between pb-6 border-b border-[#E2E8F0]">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-5 border-b border-[#E2E8F0]">
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37]/10 px-3 py-1 text-xs font-semibold text-[#C5A059]">
             <Calculator className="h-3.5 w-3.5" /> RECB Cooperative Yield Estimator
@@ -72,6 +89,17 @@ export function YieldCalculator() {
           <span className="text-xs uppercase tracking-wider text-[#94A3B8]">Lagos Reg.</span>
           <p className="font-mono text-xs font-semibold text-[#10B981]">LSCS 18176</p>
         </div>
+      </div>
+
+      {/* Prominent Operational Disclaimer as required */}
+      <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50/70 p-3.5 text-xs text-amber-900 leading-relaxed flex items-start gap-2.5">
+        <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+        <p>
+          <strong className="font-semibold text-amber-950">Important Notice:</strong> Investment
+          cashback percentages and dividend yields are dynamic and subject to periodic monthly
+          adjustments by the cooperative. Calculations are estimates based on active promotional
+          cycles (e.g. current 37% p.a. promo cycle).
+        </p>
       </div>
 
       <div className="mt-6 space-y-6">
@@ -126,17 +154,84 @@ export function YieldCalculator() {
           </div>
         </div>
 
-        {/* Yield Rate Tier Highlight */}
-        <div className="rounded-xl bg-[#F8F9FA] border border-[#E2E8F0] p-4">
-          <div className="flex items-center justify-between text-xs sm:text-sm">
-            <span className="text-[#475569]">Applicable Annual Yield Rate:</span>
-            <span className="font-heading font-bold text-[#10B981] text-base">
+        {/* Yield Rate Selector (Dynamic Monthly Promo Adjustment) */}
+        <div>
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-semibold text-[#0F172A] flex items-center gap-1.5">
+              <Percent className="h-4 w-4 text-[#D4AF37]" /> Annual Dividend Rate
+            </label>
+            <span className="font-heading text-base font-bold text-[#10B981] flex items-center gap-1">
               {annualRate}% p.a.
+              {annualRate === 37 && (
+                <span className="rounded bg-[#10B981]/10 px-1.5 py-0.5 text-[10px] text-[#10B981] font-semibold">
+                  Active Promo
+                </span>
+              )}
             </span>
           </div>
-          <p className="mt-1 text-[11px] text-[#94A3B8]">
-            Guaranteed asset-backed cooperative dividend governed by RECB bylaws.
-          </p>
+
+          {/* Quick Preset Buttons */}
+          <div className="mt-2 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {RATE_PRESETS.map((preset) => (
+              <button
+                key={preset.rate}
+                type="button"
+                onClick={() => {
+                  setIsCustomRate(false);
+                  handleRateChange(preset.rate);
+                }}
+                className={`relative rounded-lg py-2 px-2 text-xs font-semibold transition-all ${
+                  annualRate === preset.rate && !isCustomRate
+                    ? 'bg-[#10B981] text-white shadow-sm ring-2 ring-[#10B981]/30'
+                    : 'bg-[#F8F9FA] text-[#475569] border border-[#E2E8F0] hover:bg-slate-100'
+                }`}
+              >
+                {preset.label}
+                {preset.isPromo && (
+                  <span className="absolute -top-1.5 -right-1 flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500" />
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {/* Custom Slider Toggle */}
+          <div className="mt-2.5 flex items-center justify-between text-xs">
+            <button
+              type="button"
+              onClick={() => setIsCustomRate(!isCustomRate)}
+              className="text-[#C5A059] font-medium hover:underline text-[11px]"
+            >
+              {isCustomRate ? '▲ Hide Custom Rate Adjustment' : '▼ Adjust rate manually for specific cooperative cohort'}
+            </button>
+          </div>
+
+          {isCustomRate && (
+            <div className="mt-2 rounded-xl border border-[#E2E8F0] bg-[#F8F9FA] p-3">
+              <div className="flex items-center justify-between text-xs text-[#475569]">
+                <span>Fine-tune Rate:</span>
+                <span className="font-mono font-bold text-[#0B192C]">{annualRate}%</span>
+              </div>
+              <input
+                id={rateSliderId}
+                type="range"
+                min={15}
+                max={45}
+                step={1}
+                value={annualRate}
+                onChange={(e) => handleRateChange(Number(e.target.value))}
+                className="mt-2 w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#10B981]"
+              />
+              <div className="mt-1 flex justify-between text-[10px] text-[#94A3B8]">
+                <span>15%</span>
+                <span>25% Baseline</span>
+                <span>37% Promo</span>
+                <span>45% Max</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Output Projection Card */}
@@ -182,7 +277,7 @@ export function YieldCalculator() {
                   <FileCheck className="h-3 w-3 text-[#10B981]" /> Deed of Agreement
                 </span>
                 <span className="inline-flex items-center gap-1 bg-white px-2 py-0.5 rounded border border-[#E2E8F0]">
-                  <FileCheck className="h-3 w-3 text-[#10B981]" /> Payment Receipt
+                  <FileCheck className="h-3 w-3 text-[#10B981]" /> Official Receipt
                 </span>
                 <span className="inline-flex items-center gap-1 bg-white px-2 py-0.5 rounded border border-[#E2E8F0]">
                   <FileCheck className="h-3 w-3 text-[#10B981]" /> Post-Dated Cheque

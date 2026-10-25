@@ -30,6 +30,16 @@ export const metadata: Metadata = {
     "diaspora real estate investment",
     "property investment Nigeria",
   ],
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+      { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png", type: "image/png", sizes: "192x192" },
+    ],
+  },
   openGraph: {
     type: "website",
     locale: "en_NG",

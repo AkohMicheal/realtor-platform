@@ -9,33 +9,34 @@ import {
   MapPin,
 } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/InstagramIcon';
+import { SITE_CONFIG } from '@/lib/constants';
 
 const quickLinks = [
   { href: '/properties', label: 'Properties' },
   { href: '/investment', label: 'Investment Plans' },
-  { href: '/about', label: 'About Us' },
+  { href: '/about', label: 'About Mary Akoh' },
   { href: '/contact', label: 'Contact' },
-  { href: '/faq', label: 'FAQ' },
+  { href: '/investment#faq', label: 'FAQ' },
 ];
 
 const socialLinks = [
   {
-    href: 'https://wa.me/2348100915397',
+    href: SITE_CONFIG.whatsappUrl,
     label: 'WhatsApp',
     icon: MessageCircle,
   },
   {
-    href: 'https://instagram.com/marirealty',
+    href: SITE_CONFIG.socials.instagram,
     label: 'Instagram',
     icon: InstagramIcon,
   },
   {
-    href: 'https://x.com/marirealty',
+    href: SITE_CONFIG.socials.x,
     label: 'X (Twitter)',
     icon: AtSign,
   },
   {
-    href: 'mailto:info@marirealty.com',
+    href: `mailto:${SITE_CONFIG.email}`,
     label: 'Email',
     icon: Mail,
   },

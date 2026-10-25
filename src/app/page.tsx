@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Navigation } from '@/components/shared/Navigation';
 import { Footer } from '@/components/shared/Footer';
 import { TrustBar } from '@/components/shared/TrustBar';
@@ -12,6 +13,8 @@ import { client } from '@/lib/sanity/client';
 import { FEATURED_PROPERTIES_QUERY } from '@/lib/sanity/queries';
 import { MOCK_PROPERTIES, MOCK_TESTIMONIALS } from '@/lib/mockData';
 import { Property } from '@/types';
+import { SITE_CONFIG } from '@/lib/constants';
+import { generateWhatsAppLink } from '@/lib/utils';
 import {
   ShieldCheck,
   Building2,
@@ -21,6 +24,7 @@ import {
   CheckCircle2,
   Star,
   Lock,
+  ExternalLink,
 } from 'lucide-react';
 
 async function getFeaturedProperties(): Promise<Property[]> {
@@ -120,24 +124,36 @@ export default async function HomePage() {
                     </span>
                   </div>
 
-                  {/* Portrait Placeholder with branded framing */}
-                  <div className="mt-4">
-                    <MediaPlaceholder
-                      type="image"
-                      aspectRatio="portrait"
-                      label="Principal Consultant Portrait"
-                      subtext="Lead Real Estate Strategist & RECB Accredited Partner"
+                  {/* Portrait with branded framing */}
+                  <div className="mt-4 relative overflow-hidden rounded-2xl border border-slate-700/80 bg-slate-800 shadow-inner group">
+                    <Image
+                      src="/assets/branding/realtor-hero.webp"
+                      alt={`${SITE_CONFIG.consultantName} - Principal Real Estate Consultant, ${SITE_CONFIG.name}`}
+                      width={450}
+                      height={520}
+                      className="w-full h-[360px] object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      priority
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C] via-transparent to-transparent opacity-60" />
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                      <span className="rounded-lg bg-[#0B192C]/80 backdrop-blur-md px-2.5 py-1 text-[11px] font-semibold text-[#D4AF37]">
+                        {SITE_CONFIG.consultantName}
+                      </span>
+                      <span className="rounded-lg bg-[#10B981]/90 backdrop-blur-md px-2.5 py-1 text-[10px] font-bold text-white">
+                        RECB Accredited
+                      </span>
+                    </div>
                   </div>
 
                   {/* Highlights under portrait */}
                   <div className="mt-4 space-y-2">
                     <h3 className="font-heading text-lg font-bold text-white">
-                      MariRealty Wealth & Realty Advisory
+                      {SITE_CONFIG.consultantName} &bull; {SITE_CONFIG.name}
                     </h3>
                     <p className="text-xs text-slate-300 leading-relaxed">
-                      Specialized advisor bridging diaspora investors with secure land, commercial
-                      infrastructure, and cooperative fixed-income schemes in Lagos, Nigeria.
+                      Lead Real Estate Strategist affiliated with Zylus Group and RECB. Specialized
+                      in guiding diaspora & high-ticket investors into verified titles and high-yield
+                      cashback schemes.
                     </p>
                   </div>
 
@@ -147,7 +163,7 @@ export default async function HomePage() {
                         Direct Line
                       </span>
                       <p className="font-mono text-xs font-semibold text-[#D4AF37]">
-                        +234 810 091 5397
+                        {SITE_CONFIG.phoneDisplay}
                       </p>
                     </div>
                     <Link
@@ -329,57 +345,121 @@ export default async function HomePage() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] p-6 shadow-sm">
-                <div className="h-10 w-10 rounded-xl bg-[#0B192C] text-[#D4AF37] flex items-center justify-center mb-4">
-                  <FileCheck2 className="h-5 w-5" />
+              {/* Deed of Agreement */}
+              <div className="flex flex-col rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] overflow-hidden shadow-sm transition hover:shadow-md">
+                <div className="relative h-48 w-full bg-slate-900 border-b border-[#E2E8F0] overflow-hidden group">
+                  <Image
+                    src="/assets/trust/sample-recb-deed-of-agreement-preview.webp"
+                    alt="Sample RECB Deed of Agreement Document"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                    className="object-cover object-top transition duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-[#0B192C]/20 group-hover:bg-transparent transition" />
+                  <a
+                    href="/docs/sample-recb-deed-of-agreement.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white shadow hover:bg-[#D4AF37] hover:text-[#0B192C] transition"
+                  >
+                    View Sample PDF <ExternalLink className="h-3 w-3" />
+                  </a>
                 </div>
-                <h3 className="font-heading text-base font-bold text-[#0B192C]">
-                  Deed of Agreement
-                </h3>
-                <p className="mt-2 text-xs text-[#475569] leading-relaxed">
-                  A comprehensive legal contract prepared by accredited corporate solicitors,
-                  binding the cooperative to your principal sum, rate, and exit tenure.
-                </p>
-                <div className="mt-4">
-                  <span className="text-[11px] font-semibold text-[#10B981]">
-                    &bull; Sample Available in Office / PDF
-                  </span>
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="h-9 w-9 rounded-xl bg-[#0B192C] text-[#D4AF37] flex items-center justify-center mb-3">
+                      <FileCheck2 className="h-4 w-4" />
+                    </div>
+                    <h3 className="font-heading text-base font-bold text-[#0B192C]">
+                      Deed of Agreement
+                    </h3>
+                    <p className="mt-2 text-xs text-[#475569] leading-relaxed">
+                      A comprehensive legal contract prepared by accredited corporate solicitors,
+                      binding the cooperative to your principal sum, rate, and exit tenure.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-[#E2E8F0]">
+                    <a
+                      href="/docs/sample-recb-deed-of-agreement.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-[#10B981] hover:underline inline-flex items-center gap-1"
+                    >
+                      &bull; Download Sample Deed (PDF)
+                    </a>
+                  </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] p-6 shadow-sm">
-                <div className="h-10 w-10 rounded-xl bg-[#0B192C] text-[#D4AF37] flex items-center justify-center mb-4">
-                  <ShieldCheck className="h-5 w-5" />
-                </div>
-                <h3 className="font-heading text-base font-bold text-[#0B192C]">
-                  Post-Dated Cheque
-                </h3>
-                <p className="mt-2 text-xs text-[#475569] leading-relaxed">
-                  Issued by a premier Tier-1 Nigerian Commercial Bank for the exact redemption amount
-                  payable on the exact maturity date agreed.
-                </p>
-                <div className="mt-4">
-                  <span className="text-[11px] font-semibold text-[#10B981]">
-                    &bull; Bank Backed Security Instrument
+              {/* Post-Dated Cheque */}
+              <div className="flex flex-col rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] overflow-hidden shadow-sm transition hover:shadow-md">
+                <div className="relative h-48 w-full bg-slate-900 border-b border-[#E2E8F0] overflow-hidden group">
+                  <Image
+                    src="/assets/trust/sample-cheque-preview.webp"
+                    alt="Sample Bank-Guaranteed Post-Dated Cheque"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                    className="object-cover object-center transition duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-[#0B192C]/20 group-hover:bg-transparent transition" />
+                  <span className="absolute bottom-2.5 right-2.5 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-[#D4AF37] shadow">
+                    Tier-1 Bank Issued
                   </span>
+                </div>
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="h-9 w-9 rounded-xl bg-[#0B192C] text-[#D4AF37] flex items-center justify-center mb-3">
+                      <ShieldCheck className="h-4 w-4" />
+                    </div>
+                    <h3 className="font-heading text-base font-bold text-[#0B192C]">
+                      Post-Dated Cheque
+                    </h3>
+                    <p className="mt-2 text-xs text-[#475569] leading-relaxed">
+                      Issued by a premier Tier-1 Nigerian Commercial Bank for the exact redemption amount
+                      payable on the exact maturity date agreed.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-[#E2E8F0]">
+                    <span className="text-xs font-semibold text-[#10B981]">
+                      &bull; Bank-Guaranteed Liquidity Instrument
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] p-6 shadow-sm">
-                <div className="h-10 w-10 rounded-xl bg-[#0B192C] text-[#D4AF37] flex items-center justify-center mb-4">
-                  <Building2 className="h-5 w-5" />
-                </div>
-                <h3 className="font-heading text-base font-bold text-[#0B192C]">
-                  Official Cooperative Receipt
-                </h3>
-                <p className="mt-2 text-xs text-[#475569] leading-relaxed">
-                  Numbered financial confirmation bearing the official seal of Lagos State
-                  Cooperative Society LSCS 18176 and Zylus Group corporate seal.
-                </p>
-                <div className="mt-4">
-                  <span className="text-[11px] font-semibold text-[#10B981]">
-                    &bull; Tax & Audit Compliant
+              {/* Official Cooperative Receipt */}
+              <div className="flex flex-col rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] overflow-hidden shadow-sm transition hover:shadow-md">
+                <div className="relative h-48 w-full bg-slate-900 border-b border-[#E2E8F0] overflow-hidden group">
+                  <Image
+                    src="/assets/trust/sample-receipt-invoice.webp"
+                    alt="Sample Official Cooperative Receipt and Invoice"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                    className="object-cover object-top transition duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-[#0B192C]/20 group-hover:bg-transparent transition" />
+                  <span className="absolute bottom-2.5 right-2.5 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-[#10B981] shadow">
+                    LSCS 18176 Sealed
                   </span>
+                </div>
+                <div className="p-6 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="h-9 w-9 rounded-xl bg-[#0B192C] text-[#D4AF37] flex items-center justify-center mb-3">
+                      <Building2 className="h-4 w-4" />
+                    </div>
+                    <h3 className="font-heading text-base font-bold text-[#0B192C]">
+                      Official Cooperative Receipt
+                    </h3>
+                    <p className="mt-2 text-xs text-[#475569] leading-relaxed">
+                      Numbered financial confirmation bearing the official seal of Lagos State
+                      Cooperative Society LSCS 18176 and Zylus Group corporate seal.
+                    </p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-[#E2E8F0]">
+                    <span className="text-xs font-semibold text-[#10B981]">
+                      &bull; Tax & Audit Compliant
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -441,7 +521,7 @@ export default async function HomePage() {
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href="https://wa.me/2348100915397?text=Hi,%20I%20am%20ready%20to%20discuss%20Lagos%20property%20investments%20and%20RECB%20cashback%20plans."
+                href={SITE_CONFIG.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-xl bg-[#25D366] px-8 py-4 font-heading text-sm sm:text-base font-bold text-white shadow-lg transition-transform hover:scale-105 active:scale-95"

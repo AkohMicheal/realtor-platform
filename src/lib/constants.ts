@@ -1,0 +1,21 @@
+export const SITE_CONFIG = {
+  name: 'MariRealty',
+  legalName: 'MariRealty Advisory & Investments',
+  tagline: 'Secure investments. Verified assets. Trusted advisory.',
+  consultantName: process.env.NEXT_PUBLIC_REALTOR_NAME || 'Mary Akoh',
+  phone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348027669324',
+  phoneDisplay: '+234 802 766 9324',
+  email: 'info@marirealty.ng',
+  instagram: 'https://instagram.com/marirealty.ng',
+  instagramHandle: '@marirealty.ng',
+  twitter: 'https://x.com/marirealty_ng',
+  whatsappUrl: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348027669324'}?text=${encodeURIComponent('Hello Mary Akoh, I am reaching out from your website.')}`,
+  socials: {
+    instagram: 'https://instagram.com/marirealty.ng',
+    x: 'https://x.com/marirealty_ng',
+  },
+  location: 'Lekki Phase 1 / Ikeja Corporate Axis, Lagos, Nigeria',
+  cooperativeReg: 'LSCS 18176',
+  cooperativeName: 'Lagos State Cooperative Societies (RECB)',
+  partnerOrg: 'Zylus Group International',
+};

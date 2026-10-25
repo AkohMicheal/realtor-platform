@@ -17,6 +17,7 @@ import {
 import { InstagramIcon } from '@/components/ui/InstagramIcon';
 import { generateWhatsAppLink } from '@/lib/utils';
 import { trackWhatsAppClick } from '@/lib/tracking';
+import { SITE_CONFIG } from '@/lib/constants';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -62,10 +63,10 @@ export default function ContactPage() {
     }
   };
 
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348100915397';
+  const phone = SITE_CONFIG.phone;
   const whatsappUrl = generateWhatsAppLink(
     phone,
-    'Hi, I would like to schedule a private real estate advisory call regarding Lagos property listings and RECB cashback.'
+    `Hi ${SITE_CONFIG.consultantName}, I would like to schedule a private real estate advisory call regarding Lagos property listings and RECB cashback.`
   );
 
   return (
@@ -136,7 +137,7 @@ export default function ContactPage() {
                   Voice Calls & Direct Inquiries
                 </span>
                 <p className="font-heading font-bold text-base text-[#0B192C]">
-                  +234 810 091 5397
+                  {SITE_CONFIG.phoneDisplay}
                 </p>
                 <p className="text-xs text-[#475569]">Mon &ndash; Sat, 8:00am &ndash; 6:00pm WAT</p>
               </div>

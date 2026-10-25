@@ -11,15 +11,16 @@ import {
 import { InstagramIcon } from '@/components/ui/InstagramIcon';
 import { trackWhatsAppClick } from '@/lib/tracking';
 import { generateWhatsAppLink } from '@/lib/utils';
+import { SITE_CONFIG } from '@/lib/constants';
 
 export function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348100915397';
+  const phone = SITE_CONFIG.phone;
   const whatsappUrl = generateWhatsAppLink(
     phone,
-    'Hello, I am reaching out from your website. I would like more information on your verified property investments and RECB cashback schemes.'
+    `Hello ${SITE_CONFIG.consultantName}, I am reaching out from your website. I would like more information on your verified property investments and RECB cashback schemes.`
   );
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export function FloatingContact() {
     },
     {
       label: 'Direct Phone Call',
-      subtext: '+234 810 091 5397',
+      subtext: SITE_CONFIG.phoneDisplay,
       href: `tel:+${phone}`,
       icon: Phone,
       bg: 'bg-[#0B192C] text-white hover:bg-[#132D4A]',

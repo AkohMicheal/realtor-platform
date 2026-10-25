@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import imageUrlBuilder from '@sanity/image-url';
+import { createImageUrlBuilder } from '@sanity/image-url';
 import { client, isSanityConfigured } from '@/lib/sanity/client';
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { cn } from '@/lib/utils';
 
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 interface SafeSanityImageProps {
   imageSource: { asset?: { _ref?: string }; hotspot?: { x: number; y: number } } | null | undefined;

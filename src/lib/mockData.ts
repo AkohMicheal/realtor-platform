@@ -1,19 +1,56 @@
-import { Property } from '@/types';
+import { Property, PromotionalFlyer } from '@/types';
 
 export const MOCK_PROPERTIES: Property[] = [
   {
     _id: 'prop-1',
-    title: 'The Haven Crest Phase II',
-    slug: { current: 'the-haven-crest-phase-ii' },
+    title: 'The Mari Crest Phase II',
+    slug: { current: 'the-mari-crest-phase-ii' },
     category: 'cooperative-land-banking',
     location: 'Alaro City Corridor, Epe, Lagos',
-    titleType: 'Certificate of Occupancy',
+    titleType: 'Certificate of Occupancy (C of O)',
+    titleStatus: 'Approved & Government Charted',
     price: 6500000,
     priceUnit: 'per 500sqm plot',
+    initialDeposit: 1000000,
+    monthlyInstallment: 458333,
     paymentPlans: [
-      'Outright: ₦6,500,000 (5% discount)',
-      '6 Months: ₦1,200,000 / mo',
-      '12 Months: ₦650,000 / mo',
+      'Outright Payment: ₦6,500,000 (Instant Physical Allocation)',
+      '3 Months Plan: ₦2,200,000 / month',
+      '6 Months Plan: ₦1,150,000 / month',
+      '12 Months Plan: ₦625,000 / month',
+    ],
+    paymentTiers: [
+      {
+        planName: 'Outright Payment',
+        tenureMonths: 0,
+        totalPrice: 6500000,
+        initialDeposit: 6500000,
+        description: 'Instant deed endorsement + 5% prompt payment discount',
+      },
+      {
+        planName: '3 Months Installment',
+        tenureMonths: 3,
+        totalPrice: 6600000,
+        initialDeposit: 2000000,
+        monthlyInstallment: 1533333,
+        description: 'Three equal installments with zero documentation surcharge',
+      },
+      {
+        planName: '6 Months Installment',
+        tenureMonths: 6,
+        totalPrice: 6900000,
+        initialDeposit: 1500000,
+        monthlyInstallment: 900000,
+        description: 'Flexible spread for working professionals and diaspora investors',
+      },
+      {
+        planName: '12 Months Installment',
+        tenureMonths: 12,
+        totalPrice: 7500000,
+        initialDeposit: 1000000,
+        monthlyInstallment: 541666,
+        description: 'Low-entry capital spread with milestone developmental allocations',
+      },
     ],
     amenities: [
       'Paved Access Roads',
@@ -25,7 +62,7 @@ export const MOCK_PROPERTIES: Property[] = [
     status: 'selling-fast',
     featured: true,
     description:
-      'Strategically positioned along the emerging industrial and residential spine of Epe, The Haven Crest offers guaranteed capital appreciation backed by Lagos State Cooperative registration and verified C of O documentation.',
+      'Strategically positioned along the emerging industrial and residential spine of Epe, The Mari Crest offers guaranteed capital appreciation backed by Lagos State Cooperative registration and verified C of O documentation.',
   },
   {
     _id: 'prop-2',
@@ -34,12 +71,49 @@ export const MOCK_PROPERTIES: Property[] = [
     category: 'completed-housing',
     location: 'Chevron Tollgate Axis, Lekki, Lagos',
     titleType: "Governor's Consent",
+    titleStatus: 'Governor’s Consent Registered',
     price: 85000000,
     priceUnit: 'total unit',
+    initialDeposit: 20000000,
+    monthlyInstallment: 5500000,
     paymentPlans: [
-      'Outright Payment',
-      '30% Initial Deposit + 6 Months Balance',
-      'NHF / Primary Mortgage Supported',
+      'Outright Payment: ₦85,000,000',
+      '3 Months Plan: ₦29,000,000 / month',
+      '6 Months Plan: ₦14,800,000 / month',
+      '12 Months Mortgage / Structured Plan',
+    ],
+    paymentTiers: [
+      {
+        planName: 'Outright Payment',
+        tenureMonths: 0,
+        totalPrice: 85000000,
+        initialDeposit: 85000000,
+        description: 'Immediate handover and keys upon contract execution',
+      },
+      {
+        planName: '3 Months Spread',
+        tenureMonths: 3,
+        totalPrice: 87000000,
+        initialDeposit: 25000000,
+        monthlyInstallment: 20666666,
+        description: 'Phased payment with interior customization options',
+      },
+      {
+        planName: '6 Months Spread',
+        tenureMonths: 6,
+        totalPrice: 89000000,
+        initialDeposit: 20000000,
+        monthlyInstallment: 11500000,
+        description: 'Structured payments while building completion finishes',
+      },
+      {
+        planName: '12 Months Structured',
+        tenureMonths: 12,
+        totalPrice: 95000000,
+        initialDeposit: 20000000,
+        monthlyInstallment: 6250000,
+        description: 'Extended executive plan for diaspora portfolio managers',
+      },
     ],
     amenities: [
       '4 Ensuite Bedrooms + BQ',
@@ -60,12 +134,40 @@ export const MOCK_PROPERTIES: Property[] = [
     category: 'outright-land',
     location: 'Coastal Road Spine, Ibeju-Lekki, Lagos',
     titleType: 'Government Gazette',
+    titleStatus: 'Excision & Gazette Approved',
     price: 12000000,
     priceUnit: 'per 600sqm plot',
+    initialDeposit: 3000000,
+    monthlyInstallment: 1550000,
     paymentPlans: [
       'Outright: ₦12,000,000',
-      '3 Months Split: ₦4,200,000 / mo',
-      'Instant Physical Allocation',
+      '3 Months Plan: ₦4,100,000 / month',
+      '6 Months Plan: ₦2,150,000 / month',
+    ],
+    paymentTiers: [
+      {
+        planName: 'Outright Allocation',
+        tenureMonths: 0,
+        totalPrice: 12000000,
+        initialDeposit: 12000000,
+        description: 'Immediate corner-piece priority and beacon erection',
+      },
+      {
+        planName: '3 Months Installment',
+        tenureMonths: 3,
+        totalPrice: 12300000,
+        initialDeposit: 4000000,
+        monthlyInstallment: 2766666,
+        description: 'Instant site survey documentation upon initial deposit',
+      },
+      {
+        planName: '6 Months Installment',
+        tenureMonths: 6,
+        totalPrice: 12900000,
+        initialDeposit: 3000000,
+        monthlyInstallment: 1650000,
+        description: 'Flexible acquisition plan along the Lagos-Calabar corridor',
+      },
     ],
     amenities: [
       'Direct Coastal Road Access',
@@ -86,12 +188,32 @@ export const MOCK_PROPERTIES: Property[] = [
     category: 'cooperative-land-banking',
     location: 'Oregun Commercial District, Ikeja, Lagos',
     titleType: 'Deed of Assignment & Registered Survey',
+    titleStatus: 'Government Allocation / RECB Deed',
     price: 25000000,
     priceUnit: 'per fractional unit',
+    initialDeposit: 5000000,
+    monthlyInstallment: 1800000,
     paymentPlans: [
-      '12 Months Tenure: 25% Cashback Dividend',
-      '24 Months Tenure: 35% Cashback Dividend',
-      'Capital + Interest Guaranteed by RECB',
+      'Outright Allocation: ₦25,000,000',
+      '12 Months Tenure: Up to 37% Cashback Dividend Promo',
+      '24 Months Tenure: Multi-Tiered Yield Cycle',
+    ],
+    paymentTiers: [
+      {
+        planName: 'Full Capital Placement',
+        tenureMonths: 12,
+        totalPrice: 25000000,
+        initialDeposit: 25000000,
+        description: 'Qualifies for active 37% high-yield promotional cashback cycle',
+      },
+      {
+        planName: 'Split Capital Commitment',
+        tenureMonths: 6,
+        totalPrice: 25000000,
+        initialDeposit: 10000000,
+        monthlyInstallment: 3000000,
+        description: 'Interim cooperative enrollment with quarterly dividend payouts',
+      },
     ],
     amenities: [
       'Post-Dated Cheque Guarantee',
@@ -107,26 +229,59 @@ export const MOCK_PROPERTIES: Property[] = [
   },
 ];
 
+export const MOCK_PROMOTIONAL_FLYERS: PromotionalFlyer[] = [
+  {
+    _id: 'flyer-1',
+    title: 'RECB 37% High-Yield Cashback Promo Cycle',
+    category: 'cashback-promo',
+    cycleMonth: 'Active Q4 2026 Cycle',
+    highlightYield: '37% Annualized Cashback',
+    description:
+      'Limited-window promotional cooperative cycle for capital from ₦5,000,000 and above. Backed by post-dated bank cheques and Lagos State Deed of Agreement.',
+    isActive: true,
+  },
+  {
+    _id: 'flyer-2',
+    title: 'Zylus Buy-to-Resell Strategic Land Banking',
+    category: 'buy-to-resell',
+    cycleMonth: 'Monthly Circular',
+    highlightYield: 'Guaranteed Buyback Option',
+    description:
+      'Acquire pre-cleared industrial plots along the Epe-Ibeju corridor with pre-contracted institutional exit dates and contractual buyback agreements.',
+    isActive: true,
+  },
+  {
+    _id: 'flyer-3',
+    title: 'Executive Partner Challenge & Dividend Breakdown',
+    category: 'monthly-dividend',
+    cycleMonth: 'Active Circular',
+    highlightYield: 'Quarterly Dividend Payouts',
+    description:
+      'Verified performance bulletin showing completed dividend distributions and portfolio milestones across active cooperative member cohorts.',
+    isActive: true,
+  },
+];
+
 export const MOCK_TESTIMONIALS = [
   {
     name: 'Dr. Chukwuemeka Okoye',
     role: 'Diaspora Investor (London, UK)',
     quote:
-      'As someone who lost funds to relatives in 2021 pretending to buy land in Lekki, dealing with an accredited RECB consultant who issued a real post-dated cheque and Lagos State deed was the breath of fresh air I needed.',
+      'As someone who lost funds to relatives pretending to buy land in Lekki, dealing with Mary Akoh was the breath of fresh air I needed. She provided legal documentation samples, surveyed coordinates, and a bank-backed cheque on schedule.',
     rating: 5,
   },
   {
     name: 'Mrs. Folashade Adeyemi',
     role: 'Portfolio Client (Victoria Island, Lagos)',
     quote:
-      'Her advisory is grounded in law and title verification. She walked us away from two risky gazette lands and into an asset that has appreciated over 45% in 14 months.',
+      'Mary Akoh’s advisory is grounded in law and title verification. Recognized as one of the best Business Associates with Zylus Group and RECB, her professionalism gives our family complete peace of mind.',
     rating: 5,
   },
   {
     name: 'Babajide Adeleke, Esq.',
     role: 'Corporate Counsel & Land Banker',
     quote:
-      'The cashback yield projections were paid on the exact date agreed. The institutional partnership with Zylus Group and LSCS 18176 gives total legal clarity.',
+      'The cashback yield projections were paid on the exact date agreed. Mary Akoh’s institutional partnership with Zylus Group and LSCS 18176 provides total transparency.',
     rating: 5,
   },
 ];

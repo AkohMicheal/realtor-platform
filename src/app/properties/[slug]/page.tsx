@@ -10,6 +10,7 @@ import { PROPERTY_BY_SLUG_QUERY } from '@/lib/sanity/queries';
 import { MOCK_PROPERTIES } from '@/lib/mockData';
 import { Property } from '@/types';
 import { formatNaira, generateWhatsAppLink } from '@/lib/utils';
+import { SITE_CONFIG } from '@/lib/constants';
 import {
   MapPin,
   ShieldCheck,
@@ -19,7 +20,8 @@ import {
   FileText,
   Calendar,
   ArrowLeft,
-  Share2,
+  CreditCard,
+  Building,
 } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -125,8 +127,8 @@ async function PropertyDetails({ params }: Props) {
     notFound();
   }
 
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348100915397';
-  const whatsappMsg = `Hello, I am interested in inspecting "${property.title}" (${formatNaira(property.price)} in ${property.location}) from your website. Please share survey charts and available inspection schedules.`;
+  const phone = SITE_CONFIG.phone;
+  const whatsappMsg = `Hello ${SITE_CONFIG.consultantName}, I am interested in inspecting "${property.title}" (${formatNaira(property.price)} in ${property.location}) from your website. Please share survey charts and available inspection schedules.`;
   const whatsappUrl = generateWhatsAppLink(phone, whatsappMsg);
 
   // Gallery array
@@ -149,11 +151,16 @@ async function PropertyDetails({ params }: Props) {
 
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
                 <span className="rounded-full bg-[#10B981]/20 border border-[#10B981]/40 px-3 py-0.5 text-xs font-semibold text-[#10B981]">
                   Verified Title: {property.titleType}
                 </span>
-                <span className="text-xs uppercase font-semibold text-[#D4AF37]">
+                {property.titleStatus && (
+                  <span className="rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 px-3 py-0.5 text-xs font-semibold text-[#D4AF37]">
+                    Legal Status: {property.titleStatus}
+                  </span>
+                )}
+                <span className="text-xs uppercase font-semibold text-slate-300">
                   {property.category.replace(/-/g, ' ')}
                 </span>
               </div>
@@ -166,12 +173,17 @@ async function PropertyDetails({ params }: Props) {
             </div>
 
             <div className="text-left md:text-right">
-              <span className="text-xs text-slate-400 uppercase tracking-wider">Investment Price</span>
+              <span className="text-xs text-slate-400 uppercase tracking-wider">Outright Investment Price</span>
               <p className="font-heading text-3xl font-extrabold text-[#D4AF37]">
                 {formatNaira(property.price)}
               </p>
               {property.priceUnit && (
                 <span className="text-xs text-slate-400">/{property.priceUnit}</span>
+              )}
+              {property.initialDeposit && (
+                <p className="text-xs text-slate-300 mt-1">
+                  Initial Deposit: <strong className="text-white">{formatNaira(property.initialDeposit)}</strong>
+                </p>
               )}
             </div>
           </div>
@@ -196,6 +208,60 @@ async function PropertyDetails({ params }: Props) {
               </p>
             </div>
 
+            {/* Multi-Tiered Payment Structure */}
+            {property.paymentTiers && property.paymentTiers.length > 0 && (
+              <div className="rounded-2xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 className="font-heading text-xl font-bold text-[#0B192C]">
+                      Structured Payment Plans
+                    </h2>
+                    <p className="text-xs text-[#94A3B8] mt-0.5">
+                      Spread your capital payments with verified cooperative terms
+                    </p>
+                  </div>
+                  <CreditCard className="h-5 w-5 text-[#D4AF37]" />
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  {property.paymentTiers.map((tier, idx) => (
+                    <div
+                      key={idx}
+                      className="rounded-xl border border-[#E2E8F0] bg-[#F8F9FA] p-4 flex flex-col justify-between space-y-3 transition hover:border-[#D4AF37]/50 hover:shadow-md"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-heading text-sm font-bold text-[#0B192C]">
+                          {tier.planName || tier.name}
+                        </span>
+                        <span className="rounded-md bg-[#D4AF37]/10 px-2 py-0.5 text-[11px] font-bold text-[#C5A059]">
+                          {(tier.tenureMonths ?? tier.durationMonths) === 0 ? 'Instant Close' : `${tier.tenureMonths ?? tier.durationMonths} Months`}
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5 border-t border-[#E2E8F0] pt-2 text-xs">
+                        <div className="flex justify-between">
+                          <span className="text-[#94A3B8]">Total Amount:</span>
+                          <span className="font-bold text-[#0B192C]">{formatNaira(tier.totalPrice ?? tier.price ?? 0)}</span>
+                        </div>
+                        {tier.initialDeposit && (
+                          <div className="flex justify-between">
+                            <span className="text-[#94A3B8]">Initial Deposit:</span>
+                            <span className="font-semibold text-[#10B981]">{formatNaira(tier.initialDeposit)}</span>
+                          </div>
+                        )}
+                        {(tier.monthlyInstallment || tier.monthlyRepayment) && (
+                          <div className="flex justify-between">
+                            <span className="text-[#94A3B8]">Monthly Repayment:</span>
+                            <span className="font-semibold text-[#0B192C]">{formatNaira(tier.monthlyInstallment || tier.monthlyRepayment || 0)}/mo</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Amenities & Infrastructure */}
             {property.amenities && property.amenities.length > 0 && (
               <div className="rounded-2xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-sm">
@@ -213,25 +279,27 @@ async function PropertyDetails({ params }: Props) {
               </div>
             )}
 
-            {/* Payment Schedules */}
-            {property.paymentPlans && property.paymentPlans.length > 0 && (
-              <div className="rounded-2xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-sm">
-                <h2 className="font-heading text-xl font-bold text-[#0B192C]">
-                  Flexible Payment Schedules
-                </h2>
-                <div className="mt-4 space-y-3">
-                  {property.paymentPlans.map((plan, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between rounded-xl bg-[#F8F9FA] border border-[#E2E8F0] p-4 text-sm"
-                    >
-                      <span className="font-semibold text-[#0B192C]">{plan}</span>
-                      <span className="text-xs text-[#10B981] font-bold">Approved Plan</span>
-                    </div>
-                  ))}
+            {/* Payment Schedules (Legacy fallback if no structured tiers) */}
+            {(!property.paymentTiers || property.paymentTiers.length === 0) &&
+              property.paymentPlans &&
+              property.paymentPlans.length > 0 && (
+                <div className="rounded-2xl border border-[#E2E8F0] bg-white p-6 sm:p-8 shadow-sm">
+                  <h2 className="font-heading text-xl font-bold text-[#0B192C]">
+                    Payment Schedules
+                  </h2>
+                  <div className="mt-4 space-y-3">
+                    {property.paymentPlans.map((plan, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between rounded-xl bg-[#F8F9FA] border border-[#E2E8F0] p-4 text-sm"
+                      >
+                        <span className="font-semibold text-[#0B192C]">{plan}</span>
+                        <span className="text-xs text-[#10B981] font-bold">Approved Plan</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
           </div>
 
           {/* Right Column: Inquiry & Booking Sticky Drawer */}
@@ -242,7 +310,10 @@ async function PropertyDetails({ params }: Props) {
                   Verified Consultant Direct Line
                 </span>
                 <p className="font-heading text-lg font-bold text-[#0B192C] mt-1">
-                  Book Inspection or Request Deed
+                  Book Inspection with {SITE_CONFIG.consultantName}
+                </p>
+                <p className="text-xs text-[#475569] mt-0.5">
+                  Direct Line: {SITE_CONFIG.phoneDisplay}
                 </p>
               </div>
 
@@ -262,7 +333,7 @@ async function PropertyDetails({ params }: Props) {
                   href={`tel:+${phone}`}
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#0B192C] bg-white px-5 py-3.5 font-heading text-sm font-semibold text-[#0B192C] transition hover:bg-[#F8F9FA]"
                 >
-                  <PhoneCall className="h-4 w-4" /> Call Principal Realtor
+                  <PhoneCall className="h-4 w-4" /> Call {SITE_CONFIG.consultantName}
                 </a>
 
                 <Link

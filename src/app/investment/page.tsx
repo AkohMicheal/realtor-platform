@@ -1,8 +1,11 @@
+import Image from 'next/image';
 import { Navigation } from '@/components/shared/Navigation';
 import { Footer } from '@/components/shared/Footer';
 import { FloatingContact } from '@/components/shared/FloatingContact';
 import { YieldCalculator } from '@/components/calculator/YieldCalculator';
+import { PromotionalFlyersGallery } from '@/components/investment/PromotionalFlyersGallery';
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
+import { SITE_CONFIG } from '@/lib/constants';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -12,6 +15,7 @@ import {
   ArrowRight,
   HelpCircle,
   FileText,
+  ExternalLink,
 } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -155,6 +159,11 @@ export default function InvestmentPage() {
           </div>
         </section>
 
+        {/* Dynamic Promotional Circulars & Monthly Flyers Gallery */}
+        <section>
+          <PromotionalFlyersGallery />
+        </section>
+
         {/* Trust & Sample Documents */}
         <section className="rounded-3xl border border-[#E2E8F0] bg-white p-8 sm:p-12 shadow-sm">
           <div className="text-center max-w-2xl mx-auto mb-10">
@@ -165,39 +174,118 @@ export default function InvestmentPage() {
               Sample Document Security Packet
             </h2>
             <p className="mt-2 text-xs sm:text-sm text-[#475569]">
-              Every cooperative investor receives enforceable, physical documentation.
+              Every cooperative investor receives enforceable, physical and digital documentation.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <MediaPlaceholder
-                type="document"
-                aspectRatio="video"
-                label="Sample Deed of Agreement"
-                subtext="Enforceable legal instrument detailing capital, maturity date, and cooperative obligations"
-              />
-              <p className="mt-3 text-center text-xs font-semibold text-[#0B192C]">
-                Enforceable Legal Deed &bull; Prepared by Accredited Solicitors
-              </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Deed of Agreement */}
+            <div className="flex flex-col rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] overflow-hidden shadow-sm">
+              <div className="relative h-48 w-full bg-slate-900 border-b border-[#E2E8F0] overflow-hidden group">
+                <Image
+                  src="/assets/trust/sample-recb-deed-of-agreement-preview.webp"
+                  alt="Sample RECB Deed of Agreement"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                  className="object-cover object-top transition duration-300 group-hover:scale-105"
+                />
+                <a
+                  href="/docs/sample-recb-deed-of-agreement.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-white shadow hover:bg-[#D4AF37] hover:text-[#0B192C] transition"
+                >
+                  View Sample PDF <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="font-heading text-sm font-bold text-[#0B192C]">
+                    Deed of Agreement
+                  </h4>
+                  <p className="mt-1 text-xs text-[#475569] leading-relaxed">
+                    Prepared by accredited solicitors; legally binds the cooperative to principal, tenure, and dividend.
+                  </p>
+                </div>
+                <div className="mt-3 pt-2 border-t border-[#E2E8F0]">
+                  <a
+                    href="/docs/sample-recb-deed-of-agreement.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-semibold text-[#10B981] hover:underline inline-flex items-center gap-1"
+                  >
+                    &bull; Download Sample Deed (PDF)
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div>
-              <MediaPlaceholder
-                type="document"
-                aspectRatio="video"
-                label="Sample Post-Dated Cheque"
-                subtext="Tier-1 commercial bank cheque for exact payout value dated for maturity date"
-              />
-              <p className="mt-3 text-center text-xs font-semibold text-[#0B192C]">
-                Tier-1 Bank Guaranteed Post-Dated Security Cheque
-              </p>
+            {/* Post-Dated Cheque */}
+            <div className="flex flex-col rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] overflow-hidden shadow-sm">
+              <div className="relative h-48 w-full bg-slate-900 border-b border-[#E2E8F0] overflow-hidden group">
+                <Image
+                  src="/assets/trust/sample-cheque-preview.webp"
+                  alt="Sample Tier-1 Bank Guaranteed Post-Dated Cheque"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                  className="object-cover object-center transition duration-300 group-hover:scale-105"
+                />
+                <span className="absolute bottom-2.5 right-2.5 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-[#D4AF37] shadow">
+                  Tier-1 Bank Guaranteed
+                </span>
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="font-heading text-sm font-bold text-[#0B192C]">
+                    Post-Dated Cheque
+                  </h4>
+                  <p className="mt-1 text-xs text-[#475569] leading-relaxed">
+                    Issued for the exact payout amount payable on your agreed maturity date.
+                  </p>
+                </div>
+                <div className="mt-3 pt-2 border-t border-[#E2E8F0]">
+                  <span className="text-xs font-semibold text-[#10B981]">
+                    &bull; Liquidity Instrument
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Official Receipt */}
+            <div className="flex flex-col rounded-2xl border border-[#E2E8F0] bg-[#F8F9FA] overflow-hidden shadow-sm">
+              <div className="relative h-48 w-full bg-slate-900 border-b border-[#E2E8F0] overflow-hidden group">
+                <Image
+                  src="/assets/trust/sample-receipt-invoice.webp"
+                  alt="Official Cooperative Receipt and Invoice"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
+                  className="object-cover object-top transition duration-300 group-hover:scale-105"
+                />
+                <span className="absolute bottom-2.5 right-2.5 rounded-md bg-[#0B192C]/90 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold text-[#10B981] shadow">
+                  LSCS 18176 Official Seal
+                </span>
+              </div>
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h4 className="font-heading text-sm font-bold text-[#0B192C]">
+                    Cooperative Receipt & Invoice
+                  </h4>
+                  <p className="mt-1 text-xs text-[#475569] leading-relaxed">
+                    Official financial confirmation bearing Lagos State seal and corporate registration numbers.
+                  </p>
+                </div>
+                <div className="mt-3 pt-2 border-t border-[#E2E8F0]">
+                  <span className="text-xs font-semibold text-[#10B981]">
+                    &bull; Audit & Tax Compliant
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Zero-JS FAQ Accordion */}
-        <section>
+        {/* Zero-JS FAQ Accordion with id="faq" */}
+        <section id="faq" className="scroll-mt-28">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <span className="font-heading text-xs font-bold uppercase tracking-widest text-[#C5A059]">
               Common Inquiries
