@@ -66,7 +66,7 @@ export default function ContactPage() {
   const phone = SITE_CONFIG.phone;
   const whatsappUrl = generateWhatsAppLink(
     phone,
-    `Hi ${SITE_CONFIG.consultantName}, I would like to schedule a private real estate advisory call regarding Lagos property listings and RECB cashback.`
+    `Hi ${SITE_CONFIG.consultantName}, I would like to schedule a private real estate advisory call regarding verified property listings and RECB cashback.`
   );
 
   return (
@@ -254,7 +254,7 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
                         className="mt-1.5 w-full rounded-xl border border-[#E2E8F0] px-4 py-3 text-sm focus:border-[#D4AF37] focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
                       >
-                        <option value="RECB Yield Cashback">RECB Yield Cashback (20%-35%)</option>
+                        <option value="RECB Yield Cashback">RECB Yield Cashback (30%-37%)</option>
                         <option value="Outright Land Epe">Outright Land Banking (Epe/Ibeju)</option>
                         <option value="Completed Housing">Completed Residential Terraces</option>
                         <option value="Commercial Land">Commercial / Industrial Plot</option>

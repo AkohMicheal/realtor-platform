@@ -13,7 +13,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Verified Property Inventory & Land Banking | MariRealty',
   description:
-    'Browse accredited Lagos real estate listings: Governor’s Consent terraces, Gazette and C of O land in Epe, Lekki, and Ibeju-Lekki, plus RECB cooperative cashback allocations.',
+    'Browse accredited Nigerian real estate listings: Governor’s Consent terraces, Gazette and C of O land across prime investment corridors, plus RECB cooperative cashback allocations.',
 };
 
 async function getProperties(): Promise<Property[]> {
@@ -96,7 +96,7 @@ export default function PropertiesPage() {
             </h1>
             <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
               Every property listed here has undergone legal title registry verification, dry topography
-              inspections, and developmental zoning confirmation across prime Lagos corridors.
+              inspections, and developmental zoning confirmation across prime growth corridors in Nigeria.
             </p>
           </div>
         </div>

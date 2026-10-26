@@ -145,7 +145,7 @@ export default function HomePage() {
 
                 {/* Main Headline */}
                 <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-                  Secure Lagos Real Estate With{' '}
+                  Secure Real Estate With{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C5A059]">
                     Institutional Backing
                   </span>
@@ -154,7 +154,7 @@ export default function HomePage() {
                 {/* Subtext */}
                 <p className="max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed mx-auto lg:mx-0">
                   Protecting diaspora and high-ticket capital through verified land banking, legal
-                  title due diligence, and cooperative cashback schemes delivering 20%–35% annualized yields.
+                  title due diligence, and cooperative cashback schemes delivering 30%–37% annualized yields.
                 </p>
 
                 {/* CTAs */}
@@ -265,7 +265,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-slate-800">
               <div className="pt-4 sm:pt-0">
                 <p className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#D4AF37]">
-                  <CounterAnimation target={1.8} prefix="₦" suffix="B+" decimals={1} />
+                  <CounterAnimation target={250} prefix="₦" suffix="M+" />
                 </p>
                 <p className="mt-2 text-xs sm:text-sm font-medium uppercase tracking-widest text-slate-400">
                   Portfolio Value Advised
@@ -274,10 +274,10 @@ export default function HomePage() {
 
               <div className="pt-6 sm:pt-0">
                 <p className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#10B981]">
-                  <CounterAnimation target={420} suffix="+" />
+                  <CounterAnimation target={50} suffix="+" />
                 </p>
                 <p className="mt-2 text-xs sm:text-sm font-medium uppercase tracking-widest text-slate-400">
-                  Diaspora & Institutional Clients
+                  Diaspora & Private Clients
                 </p>
               </div>
 
@@ -352,7 +352,7 @@ export default function HomePage() {
                         Capital Secured by Real Estate Equity
                       </h4>
                       <p className="text-xs text-[#475569] mt-0.5">
-                        Your investment is allocated against tangible landed property reserves valued at over 200% of capital.
+                        Your investment is allocated against tangible landed property reserves valued at 100% of capital.
                       </p>
                     </div>
                   </div>
@@ -377,10 +377,10 @@ export default function HomePage() {
                     </div>
                     <div>
                       <h4 className="font-heading font-semibold text-sm text-[#0B192C]">
-                        Guaranteed Exit at 6 to 24 Months
+                        Structured 12-Month Maturity & Roll-Over
                       </h4>
                       <p className="text-xs text-[#475569] mt-0.5">
-                        Withdraw your principal plus scheduled 20% to 35% dividend returns without liquidity delays.
+                        Withdraw your principal plus scheduled 30% to 37% dividend returns upon your 12-month maturity, or opt to roll over for another 12-month cycle.
                       </p>
                     </div>
                   </div>
@@ -618,7 +618,7 @@ export default function HomePage() {
               Protect Your Capital &bull; Grow Your Portfolio
             </span>
             <h2 className="mt-3 font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold">
-              Ready to Secure Your Next Lagos Property or Cashback Investment?
+              Ready to Secure Your Next Property or Cashback Investment?
             </h2>
             <p className="mt-4 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
               Skip the runaround. Speak directly with an accredited consultant on WhatsApp or schedule

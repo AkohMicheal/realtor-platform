@@ -25,7 +25,7 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'RECB Cooperative Real Estate Cashback Investment (20%-35% Yield) | MariRealty',
+  title: 'RECB Cooperative Real Estate Cashback Investment (30%-37% Yield) | MariRealty',
   description:
     'Learn how the Lagos State Registered RECB Real Estate Cashback scheme (LSCS 18176) delivers asset-backed passive dividends with post-dated cheques and legal deeds.',
 };
@@ -45,7 +45,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'What are the available investment tenures and dividend rates?',
-    a: 'Tenures range from 6, 12, 18, to 24 months. Annualized dividend yields range between 20% and 35% depending on principal capital and selected tenure. Use our live interactive calculator above to project your exact return.',
+    a: 'The standard recommended investment tenure is 12 months, with the flexible option to roll over for another 12-month cycle (up to 24 months). Early exit before 12 months is not recommended to protect your capital gains. Active annualized dividend yields range between 30% and 37% based on active promotional cohorts. Use our live interactive calculator above to project your exact return.',
   },
   {
     q: 'What happens when my investment reaches maturity?',
@@ -117,7 +117,7 @@ export default function InvestmentPage() {
             </h1>
 
             <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
-              Eliminate real estate speculation. Lock in 20% to 35% annualized cashback dividends
+              Eliminate real estate speculation. Lock in 30% to 37% annualized cashback dividends
               backed by tangible land reserves, enforceable contracts, and bank-guaranteed post-dated cheques.
             </p>
           </div>
@@ -145,7 +145,7 @@ export default function InvestmentPage() {
                 Select Capital & Tenure
               </h3>
               <p className="mt-2 text-xs text-[#475569] leading-relaxed">
-                Choose your principal (from ₦1,000,000 to ₦100M+) and select a comfortable tenure (6 to 24 months).
+                Choose your principal (from ₦1,000,000 to ₦100M+) for a structured 12-month tenure with the option to roll over annually.
               </p>
             </div>
 
@@ -157,7 +157,7 @@ export default function InvestmentPage() {
                 Asset Backing Allocation
               </h3>
               <p className="mt-2 text-xs text-[#475569] leading-relaxed">
-                Physical land equity valued at over 200% of your investment capital is designated from RECB asset holdings.
+                Physical land equity valued at 100% of your investment capital is designated from RECB asset holdings.
               </p>
             </div>
 

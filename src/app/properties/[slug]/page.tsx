@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `${property.title} | MariRealty`,
-    description: property.description || `Verified Lagos property: ${property.location}. Title: ${property.titleType}`,
+    description: property.description || `Verified property: ${property.location}. Title: ${property.titleType}`,
   };
 }
 

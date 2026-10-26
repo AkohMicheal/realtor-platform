@@ -114,7 +114,7 @@ export default function AboutPage() {
             <p className="text-sm sm:text-base text-[#475569] leading-relaxed">
               In an industry frequently crowded with ambiguous land titles, unauthorized family sales,
               and speculative promises, <strong>Mary Akoh</strong> has built an impeccable reputation
-              as one of the most trusted real estate investment strategists in Lagos.
+              as one of the most trusted real estate investment strategists in Nigeria.
             </p>
 
             <p className="text-sm sm:text-base text-[#475569] leading-relaxed">

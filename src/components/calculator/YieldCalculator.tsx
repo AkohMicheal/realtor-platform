@@ -15,13 +15,13 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-const TENURE_OPTIONS = [6, 12, 18, 24] as const;
+const TENURE_OPTIONS = [12, 24] as const;
 type Tenure = (typeof TENURE_OPTIONS)[number];
 
 const RATE_PRESETS = [
-  { label: '25% Standard', rate: 25 },
-  { label: '28% Growth', rate: 28 },
-  { label: '33% Elite', rate: 33 },
+  { label: '30% Standard', rate: 30 },
+  { label: '33% Growth', rate: 33 },
+  { label: '35% Elite', rate: 35 },
   { label: '37% Active Promo', rate: 37, isPromo: true },
 ];
 
@@ -86,7 +86,7 @@ export function YieldCalculator() {
           </h2>
         </div>
         <div className="hidden sm:block text-right">
-          <span className="text-xs uppercase tracking-wider text-[#94A3B8]">Lagos Reg.</span>
+          <span className="text-xs uppercase tracking-wider text-[#94A3B8]">Co-op Reg.</span>
           <p className="font-mono text-xs font-semibold text-[#10B981]">LSCS 18176</p>
         </div>
       </div>
@@ -135,20 +135,23 @@ export function YieldCalculator() {
 
         {/* Tenure Selection */}
         <div>
-          <label className="text-sm font-semibold text-[#0F172A]">Investment Tenure</label>
-          <div className="mt-2 grid grid-cols-4 gap-2">
+          <div className="flex items-center justify-between">
+            <label className="text-sm font-semibold text-[#0F172A]">Investment Tenure</label>
+            <span className="text-[11px] text-[#475569]">Standard 12-Mo cycle with roll-over option</span>
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-3">
             {TENURE_OPTIONS.map((t) => (
               <button
                 key={t}
                 type="button"
                 onClick={() => handleTenureChange(t)}
-                className={`rounded-lg py-2.5 text-center text-sm font-semibold transition-all duration-200 ${
+                className={`rounded-xl py-3 px-3 text-center text-xs sm:text-sm font-semibold transition-all duration-200 ${
                   tenure === t
                     ? 'bg-[#0B192C] text-[#D4AF37] shadow-md ring-2 ring-[#D4AF37]'
                     : 'bg-[#F8F9FA] text-[#475569] hover:bg-slate-100 border border-[#E2E8F0]'
                 }`}
               >
-                {t} Mo
+                {t === 12 ? '12 Months (Standard Maturity)' : '24 Months (1-Yr Roll-Over)'}
               </button>
             ))}
           </div>
@@ -217,7 +220,7 @@ export function YieldCalculator() {
               <input
                 id={rateSliderId}
                 type="range"
-                min={15}
+                min={25}
                 max={45}
                 step={1}
                 value={annualRate}
@@ -225,8 +228,8 @@ export function YieldCalculator() {
                 className="mt-2 w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#10B981]"
               />
               <div className="mt-1 flex justify-between text-[10px] text-[#94A3B8]">
-                <span>15%</span>
-                <span>25% Baseline</span>
+                <span>25% Min</span>
+                <span>30% Standard</span>
                 <span>37% Promo</span>
                 <span>45% Max</span>
               </div>

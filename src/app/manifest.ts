@@ -2,10 +2,10 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'MariRealty — Secure Real Estate Investments in Lagos',
+    name: 'MariRealty — Secure Real Estate Investments',
     short_name: 'MariRealty',
     description:
-      'Lagos-based real estate advisory and RECB cooperative investment platform. Licensed under Lagos State Cooperative LSCS 18176.',
+      'Nigeria-wide real estate advisory and RECB cooperative investment platform. Licensed under Lagos State Cooperative LSCS 18176.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0B192C',

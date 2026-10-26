@@ -32,7 +32,7 @@ const socialLinks = [
   },
   {
     href: SITE_CONFIG.socials.x,
-    label: 'X (Twitter)',
+    label: `X (${SITE_CONFIG.twitterHandle})`,
     icon: AtSign,
   },
   {
@@ -129,9 +129,9 @@ export function Footer() {
             </p>
             <p className="max-w-lg text-[10px] leading-relaxed text-slate-500">
               Investment in real estate involves risks. Past performance does not guarantee
-              future results. MariRealty is a registered real estate advisory firm and
-              does not provide financial advice. Please conduct independent due diligence
-              before making any investment decisions.
+              future results. MariRealty is a registered real estate advisory firm and also a
+              financial advisor, but we recommend that you conduct independent due diligence
+              before making any investment decision.
             </p>
           </div>
         </div>
