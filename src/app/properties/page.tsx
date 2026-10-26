@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Navigation } from '@/components/shared/Navigation';
 import { Footer } from '@/components/shared/Footer';
 import { FloatingContact } from '@/components/shared/FloatingContact';
@@ -27,9 +28,61 @@ async function getProperties(): Promise<Property[]> {
   }
 }
 
-export default async function PropertiesPage() {
+function PropertiesGridSkeleton() {
+  return (
+    <div>
+      <div className="mb-8 rounded-xl bg-white border border-[#E2E8F0] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="h-4 w-44 rounded bg-slate-200 animate-pulse" />
+        <div className="h-4 w-72 rounded bg-slate-100 animate-pulse" />
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[...Array(6)].map((_, idx) => (
+          <div
+            key={idx}
+            className="flex flex-col overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white shadow-sm"
+          >
+            <div className="aspect-video w-full bg-slate-200 animate-pulse" />
+            <div className="p-6 space-y-4">
+              <div className="h-4 w-28 rounded bg-slate-200 animate-pulse" />
+              <div className="h-6 w-3/4 rounded bg-slate-200 animate-pulse" />
+              <div className="h-4 w-1/2 rounded bg-slate-200 animate-pulse" />
+              <div className="pt-4 border-t border-[#E2E8F0] flex items-center justify-between">
+                <div className="h-6 w-24 rounded bg-slate-200 animate-pulse" />
+                <div className="h-8 w-24 rounded-lg bg-slate-200 animate-pulse" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+async function PropertiesGrid() {
   const properties = await getProperties();
 
+  return (
+    <>
+      <div className="mb-8 rounded-xl bg-white border border-[#E2E8F0] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex items-center gap-2 text-xs sm:text-sm text-[#475569]">
+          <span className="font-semibold text-[#0B192C]">Showing:</span>
+          <span>{properties.length} Active Verified Listings</span>
+        </div>
+        <div className="flex items-center gap-2 text-xs text-[#10B981] font-medium">
+          <ShieldCheck className="h-4 w-4" /> All legal documents available for lawyer review prior to payment
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {properties.map((property) => (
+          <PropertyCard key={property._id} property={property} />
+        ))}
+      </div>
+    </>
+  );
+}
+
+export default function PropertiesPage() {
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-[#0F172A] selection:bg-[#D4AF37]/20 selection:text-[#0B192C]">
       <Navigation />
@@ -55,23 +108,9 @@ export default async function PropertiesPage() {
 
       {/* Main Grid Content */}
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        {/* Verification Strip */}
-        <div className="mb-8 rounded-xl bg-white border border-[#E2E8F0] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-[#475569]">
-            <span className="font-semibold text-[#0B192C]">Showing:</span>
-            <span>{properties.length} Active Verified Listings</span>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-[#10B981] font-medium">
-            <ShieldCheck className="h-4 w-4" /> All legal documents available for lawyer review prior to payment
-          </div>
-        </div>
-
-        {/* Listings Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {properties.map((property) => (
-            <PropertyCard key={property._id} property={property} />
-          ))}
-        </div>
+        <Suspense fallback={<PropertiesGridSkeleton />}>
+          <PropertiesGrid />
+        </Suspense>
       </main>
 
       <Footer />

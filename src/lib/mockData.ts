@@ -252,7 +252,7 @@ export const MOCK_PROMOTIONAL_FLYERS: PromotionalFlyer[] = [
   },
   {
     _id: 'flyer-3',
-    title: 'Executive Partner Challenge & Dividend Breakdown',
+    title: 'Monthly Cooperative Dividend Breakdown',
     category: 'monthly-dividend',
     cycleMonth: 'Active Circular',
     highlightYield: 'Quarterly Dividend Payouts',

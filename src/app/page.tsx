@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Navigation } from '@/components/shared/Navigation';
@@ -39,9 +40,43 @@ async function getFeaturedProperties(): Promise<Property[]> {
   }
 }
 
-export default async function HomePage() {
+function FeaturedPropertiesSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[...Array(3)].map((_, idx) => (
+        <div
+          key={idx}
+          className="flex flex-col overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white shadow-sm"
+        >
+          <div className="aspect-video w-full bg-slate-200 animate-pulse" />
+          <div className="p-6 space-y-4">
+            <div className="h-4 w-28 rounded bg-slate-200 animate-pulse" />
+            <div className="h-6 w-3/4 rounded bg-slate-200 animate-pulse" />
+            <div className="h-4 w-1/2 rounded bg-slate-200 animate-pulse" />
+            <div className="pt-4 border-t border-[#E2E8F0] flex items-center justify-between">
+              <div className="h-6 w-24 rounded bg-slate-200 animate-pulse" />
+              <div className="h-8 w-24 rounded-lg bg-slate-200 animate-pulse" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+async function FeaturedPropertiesList() {
   const featuredProperties = await getFeaturedProperties();
 
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {featuredProperties.slice(0, 3).map((property) => (
+        <PropertyCard key={property._id} property={property} />
+      ))}
+    </div>
+  );
+}
+
+export default function HomePage() {
   return (
     <div className="relative min-h-screen bg-[#F8F9FA] text-[#0F172A] selection:bg-[#D4AF37]/20 selection:text-[#0B192C]">
       {/* Navigation */}
@@ -237,15 +272,13 @@ export default async function HomePage() {
                 href="/properties"
                 className="inline-flex items-center gap-2 rounded-xl border border-[#0B192C] px-5 py-3 text-sm font-semibold text-[#0B192C] hover:bg-[#0B192C] hover:text-white transition-colors duration-200"
               >
-                Browse All Properties ({featuredProperties.length}) <ArrowRight className="h-4 w-4" />
+                Browse All Properties <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {featuredProperties.slice(0, 3).map((property) => (
-                <PropertyCard key={property._id} property={property} />
-              ))}
-            </div>
+            <Suspense fallback={<FeaturedPropertiesSkeleton />}>
+              <FeaturedPropertiesList />
+            </Suspense>
           </div>
         </section>
 

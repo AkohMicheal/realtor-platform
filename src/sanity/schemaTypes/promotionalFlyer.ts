@@ -25,7 +25,6 @@ export const promotionalFlyerType = defineType({
         list: [
           { title: 'Dividend Sheet', value: 'Dividend Sheet' },
           { title: 'Buy To Resell', value: 'Buy To Resell' },
-          { title: 'Partner Challenge', value: 'Partner Challenge' },
           { title: 'Special Promo', value: 'Special Promo' },
         ],
       },
