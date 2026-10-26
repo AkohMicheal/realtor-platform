@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import Image from 'next/image';
 import { Navigation } from '@/components/shared/Navigation';
 import { Footer } from '@/components/shared/Footer';
@@ -5,6 +6,10 @@ import { FloatingContact } from '@/components/shared/FloatingContact';
 import { YieldCalculator } from '@/components/calculator/YieldCalculator';
 import { PromotionalFlyersGallery } from '@/components/investment/PromotionalFlyersGallery';
 import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
+import { client } from '@/lib/sanity/client';
+import { PROMOTIONAL_FLYERS_QUERY } from '@/lib/sanity/queries';
+import { MOCK_PROMOTIONAL_FLYERS } from '@/lib/mockData';
+import { PromotionalFlyer } from '@/types';
 import { SITE_CONFIG } from '@/lib/constants';
 import {
   ShieldCheck,
@@ -47,6 +52,51 @@ const FAQ_ITEMS = [
     a: 'On maturity, you can either present your post-dated cheque directly to your bank or receive an immediate electronic transfer to your verified account. Alternatively, you may roll over your capital into another tenure or convert your capital into physical land ownership.',
   },
 ];
+
+async function getPromotionalFlyers(): Promise<PromotionalFlyer[]> {
+  try {
+    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+      return MOCK_PROMOTIONAL_FLYERS;
+    }
+    const data = await client.fetch<PromotionalFlyer[]>(PROMOTIONAL_FLYERS_QUERY);
+    if (data && data.length > 0) {
+      return data;
+    }
+    return MOCK_PROMOTIONAL_FLYERS;
+  } catch (err) {
+    console.error('Error fetching flyers from Sanity:', err);
+    return MOCK_PROMOTIONAL_FLYERS;
+  }
+}
+
+function PromotionalFlyersSkeleton() {
+  return (
+    <div className="space-y-6">
+      <div className="h-6 w-48 rounded bg-slate-200 animate-pulse" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[...Array(3)].map((_, idx) => (
+          <div
+            key={idx}
+            className="flex flex-col overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white shadow-sm"
+          >
+            <div className="aspect-[3/4] w-full bg-slate-200 animate-pulse" />
+            <div className="p-6 space-y-3">
+              <div className="h-4 w-32 rounded bg-slate-200 animate-pulse" />
+              <div className="h-6 w-3/4 rounded bg-slate-200 animate-pulse" />
+              <div className="h-4 w-full rounded bg-slate-100 animate-pulse" />
+              <div className="h-10 w-full rounded-xl bg-slate-200 animate-pulse mt-4" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+async function InvestmentFlyersSection() {
+  const flyers = await getPromotionalFlyers();
+  return <PromotionalFlyersGallery flyers={flyers} initialLimit={6} />;
+}
 
 export default function InvestmentPage() {
   return (
@@ -161,7 +211,9 @@ export default function InvestmentPage() {
 
         {/* Dynamic Promotional Circulars & Monthly Flyers Gallery */}
         <section>
-          <PromotionalFlyersGallery />
+          <Suspense fallback={<PromotionalFlyersSkeleton />}>
+            <InvestmentFlyersSection />
+          </Suspense>
         </section>
 
         {/* Trust & Sample Documents */}

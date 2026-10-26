@@ -11,9 +11,10 @@ import { MediaPlaceholder } from '@/components/ui/MediaPlaceholder';
 import { CounterAnimation } from '@/components/animations/CounterAnimation';
 import { HeroCanvasWrapper } from '@/components/3d/HeroCanvasWrapper';
 import { client } from '@/lib/sanity/client';
-import { FEATURED_PROPERTIES_QUERY } from '@/lib/sanity/queries';
-import { MOCK_PROPERTIES, MOCK_TESTIMONIALS } from '@/lib/mockData';
-import { Property } from '@/types';
+import { FEATURED_PROPERTIES_QUERY, PROMOTIONAL_FLYERS_QUERY } from '@/lib/sanity/queries';
+import { MOCK_PROPERTIES, MOCK_TESTIMONIALS, MOCK_PROMOTIONAL_FLYERS } from '@/lib/mockData';
+import { Property, PromotionalFlyer } from '@/types';
+import { PromotionalFlyersGallery } from '@/components/investment/PromotionalFlyersGallery';
 import { SITE_CONFIG } from '@/lib/constants';
 import { generateWhatsAppLink } from '@/lib/utils';
 import {
@@ -74,6 +75,47 @@ async function FeaturedPropertiesList() {
       ))}
     </div>
   );
+}
+
+async function getPromotionalFlyers(): Promise<PromotionalFlyer[]> {
+  try {
+    if (!process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+      return MOCK_PROMOTIONAL_FLYERS.slice(0, 3);
+    }
+    const data = await client.fetch<PromotionalFlyer[]>(PROMOTIONAL_FLYERS_QUERY);
+    if (data && data.length > 0) {
+      return data.slice(0, 3);
+    }
+    return MOCK_PROMOTIONAL_FLYERS.slice(0, 3);
+  } catch {
+    return MOCK_PROMOTIONAL_FLYERS.slice(0, 3);
+  }
+}
+
+function PromotionalFlyersSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {[...Array(3)].map((_, idx) => (
+        <div
+          key={idx}
+          className="flex flex-col overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white shadow-sm"
+        >
+          <div className="aspect-[3/4] w-full bg-slate-200 animate-pulse" />
+          <div className="p-6 space-y-3">
+            <div className="h-4 w-32 rounded bg-slate-200 animate-pulse" />
+            <div className="h-6 w-3/4 rounded bg-slate-200 animate-pulse" />
+            <div className="h-4 w-full rounded bg-slate-100 animate-pulse" />
+            <div className="h-10 w-full rounded-xl bg-slate-200 animate-pulse mt-4" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+async function HomePageFlyersSection() {
+  const flyers = await getPromotionalFlyers();
+  return <PromotionalFlyersGallery flyers={flyers} maxItems={3} showHeader={false} />;
 }
 
 export default function HomePage() {
@@ -358,6 +400,37 @@ export default function HomePage() {
                 <YieldCalculator />
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ACTIVE PROMOTIONAL CIRCULARS & CO-OP FLYERS */}
+        <section className="py-20 bg-slate-50 border-t border-[#E2E8F0]">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+              <div>
+                <span className="font-heading text-xs font-bold uppercase tracking-widest text-[#C5A059]">
+                  Active Co-op Circulars
+                </span>
+                <h2 className="mt-2 font-heading text-3xl sm:text-4xl font-bold text-[#0B192C]">
+                  Current Monthly Circulars &amp; Promotional Flyers
+                </h2>
+                <p className="mt-2 text-sm sm:text-base text-[#475569] max-w-xl">
+                  RECB and Zylus cooperative yields and land banking initiatives update monthly based on active
+                  promotional windows. Explore verified active circulars below.
+                </p>
+              </div>
+
+              <Link
+                href="/investment"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#0B192C] px-5 py-3 text-sm font-semibold text-[#0B192C] hover:bg-[#0B192C] hover:text-white transition-colors duration-200"
+              >
+                Explore All Schemes &amp; Calculator <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <Suspense fallback={<PromotionalFlyersSkeleton />}>
+              <HomePageFlyersSection />
+            </Suspense>
           </div>
         </section>
 

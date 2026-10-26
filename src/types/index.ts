@@ -39,13 +39,15 @@ export interface Property {
 export interface PromotionalFlyer {
   _id: string;
   title: string;
-  category: "cashback-promo" | "buy-to-resell" | "partner-challenge" | "monthly-dividend";
-  cycleMonth: string; // e.g. "October 2026 Promo Cycle"
-  highlightYield?: string; // e.g. "Up to 37% Cashback"
-  image?: SanityImage | string;
+  category: string;
+  month?: string;
+  cycleMonth?: string;
+  highlightYield?: string;
+  image?: any;
   pdfUrl?: string;
-  description: string;
-  isActive: boolean;
+  description?: string;
+  active?: boolean;
+  isActive?: boolean;
 }
 
 export interface SanityImage {

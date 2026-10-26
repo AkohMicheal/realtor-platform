@@ -143,6 +143,25 @@ export default function ContactPage() {
               </div>
             </a>
 
+            {/* Direct Email */}
+            <a
+              href={`mailto:${SITE_CONFIG.email}`}
+              className="flex items-center gap-4 rounded-2xl border border-[#E2E8F0] bg-white p-5 transition hover:border-[#D4AF37]"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0B192C] text-[#D4AF37] shadow-md">
+                <Mail className="h-5 w-5" />
+              </div>
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#94A3B8]">
+                  Official Correspondence
+                </span>
+                <p className="font-heading font-bold text-base text-[#0B192C]">
+                  {SITE_CONFIG.email}
+                </p>
+                <p className="text-xs text-[#475569]">Direct executive inbox</p>
+              </div>
+            </a>
+
             {/* Office & Affiliation */}
             <div className="rounded-2xl border border-[#E2E8F0] bg-white p-5 space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#C5A059]">

@@ -162,14 +162,15 @@ export function PropertyGallery({ images = [], title }: PropertyGalleryProps) {
           )}
 
           {/* Image */}
-          <div className="relative max-h-[85vh] max-w-5xl w-full">
+          <div className="relative flex flex-col items-center justify-center max-h-[90vh] max-w-5xl w-full">
             <SafeSanityImage
               imageSource={mainImage}
               altText={title}
-              aspectRatio="video"
+              aspectRatio="fullscreen"
+              priority
             />
-            <p className="mt-3 text-center text-sm text-slate-300">
-              {title} — {currentIndex + 1} of {images.length}
+            <p className="mt-3 text-center text-sm font-medium text-slate-300">
+              {title} &bull; {currentIndex + 1} of {images.length}
             </p>
           </div>
         </div>

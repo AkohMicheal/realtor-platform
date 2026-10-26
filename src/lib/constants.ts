@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   consultantName: process.env.NEXT_PUBLIC_REALTOR_NAME || 'Mary Akoh',
   phone: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '2348027669324',
   phoneDisplay: '+234 802 766 9324',
-  email: 'info@marirealty.ng',
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'maryakoh2017@gmail.com',
   instagram: 'https://instagram.com/marirealty.ng',
   instagramHandle: '@marirealty.ng',
   twitter: 'https://x.com/marirealty_ng',

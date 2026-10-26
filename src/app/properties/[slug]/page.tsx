@@ -44,6 +44,25 @@ async function getProperty(slug: string): Promise<Property | null> {
 }
 
 export async function generateStaticParams() {
+  try {
+    if (process.env.NEXT_PUBLIC_SANITY_PROJECT_ID) {
+      const sanityProperties = await client.fetch<Array<{ slug?: { current?: string } }>>(
+        `*[_type == "property" && defined(slug.current)] { slug }`
+      );
+      if (sanityProperties && sanityProperties.length > 0) {
+        const slugs = new Set([
+          ...sanityProperties
+            .map((p) => p.slug?.current)
+            .filter((s): s is string => Boolean(s)),
+          ...MOCK_PROPERTIES.map((p) => p.slug.current),
+        ]);
+        return Array.from(slugs).map((slug) => ({ slug }));
+      }
+    }
+  } catch (err) {
+    console.error('Failed to fetch slugs from Sanity in generateStaticParams:', err);
+  }
+
   return MOCK_PROPERTIES.map((p) => ({
     slug: p.slug.current,
   }));

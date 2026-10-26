@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { Navigation } from '@/components/shared/Navigation';
 import { Footer } from '@/components/shared/Footer';
 import { FloatingContact } from '@/components/shared/FloatingContact';
-import { PropertyCard } from '@/components/listings/PropertyCard';
+import { PaginatedPropertiesGrid } from '@/components/listings/PaginatedPropertiesGrid';
 import { client } from '@/lib/sanity/client';
 import { PROPERTIES_QUERY } from '@/lib/sanity/queries';
 import { MOCK_PROPERTIES } from '@/lib/mockData';
@@ -73,11 +73,7 @@ async function PropertiesGrid() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {properties.map((property) => (
-          <PropertyCard key={property._id} property={property} />
-        ))}
-      </div>
+      <PaginatedPropertiesGrid properties={properties} initialLimit={6} />
     </>
   );
 }
