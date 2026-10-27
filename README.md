@@ -34,7 +34,7 @@
 ### 4. Direct Omnichannel Lead Pipeline (Supabase + Resend)
 - **Zero Third-Party Middleware**: Directly integrated inside Next.js API route (`src/app/api/leads/route.ts`).
 - **Database Storage**: Submissions are validated with Zod and archived in Supabase `leads` table.
-- **Instant Email Alerts**: Dispatches an executive HTML notification to `maryakoh2017@gmail.com` the exact second a client submits an inquiry, complete with a 1-tap WhatsApp chat button and phone call trigger.
+- **Instant Email Alerts**: Dispatches an executive HTML notification to `xxxx@gmail.com` the exact second a client submits an inquiry, complete with a 1-tap WhatsApp chat button and phone call trigger.
 
 ### 5. Embedded Sanity Backoffice Studio (`/backoffice`)
 - Fully embedded Sanity Studio accessible at `/backoffice` without running a separate CMS server.
@@ -101,42 +101,6 @@ realtor-platform/
 │   └── types/              # Comprehensive TypeScript interfaces
 ├── sanity.config.ts        # Sanity Studio configuration
 └── next.config.ts          # Turbopack & remote image patterns (cdn.sanity.io)
-```
-
----
-
-## ⚙️ Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Sanity CMS
-NEXT_PUBLIC_SANITY_PROJECT_ID=qkf3xmk0
-NEXT_PUBLIC_SANITY_DATASET=production
-
-# Supabase Database
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
-
-# Resend Email Engine
-RESEND_API_KEY=re_your_resend_api_key
-RESEND_FROM_EMAIL=MariRealty Alerts <onboarding@resend.dev>
-LEAD_NOTIFICATION_EMAIL=maryakoh2017@gmail.com
-
-# Consultant Contact & Socials
-NEXT_PUBLIC_REALTOR_NAME="Mary Akoh"
-NEXT_PUBLIC_WHATSAPP_NUMBER=2348027669324
-NEXT_PUBLIC_CONTACT_EMAIL=maryakoh2017@gmail.com
-NEXT_PUBLIC_TWITTER_HANDLE=@MaryAkohRealty
-NEXT_PUBLIC_TWITTER_URL=https://x.com/MaryAkohRealty
-
-# Analytics & Tracking (Optional in dev)
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-NEXT_PUBLIC_META_PIXEL_ID=XXXXXXXXXXXXXXXX
-
-# Sanity On-Demand Revalidation Secret
-SANITY_REVALIDATE_SECRET=your_revalidation_secret_token
 ```
 
 ---
