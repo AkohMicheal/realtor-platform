@@ -94,12 +94,20 @@ export default function HeroScene() {
     };
     window.addEventListener('resize', onResize);
 
+    // Pause animation when tab is inactive to preserve main thread & INP
+    let isVisible = !document.hidden;
+    const onVisibilityChange = () => {
+      isVisible = !document.hidden;
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     // Animation Loop
     let animationFrameId: number;
     let clock = new THREE.Clock();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+      if (!isVisible) return;
       const elapsedTime = clock.getElapsedTime();
 
       // Slow drift
@@ -117,6 +125,7 @@ export default function HeroScene() {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       if (mount.contains(renderer.domElement)) {
         mount.removeChild(renderer.domElement);
       }

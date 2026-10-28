@@ -40,10 +40,21 @@
 - Fully embedded Sanity Studio accessible at `/backoffice` without running a separate CMS server.
 - Allows real-time content management of properties, monthly circular flyers, and client testimonials.
 
-### 6. Analytics & Performance Monitoring
-- Integrated **Vercel Web Analytics** (`@vercel/analytics`).
-- Integrated **Vercel Speed Insights** (`@vercel/speed-insights`).
-- Meta Pixel (`NEXT_PUBLIC_META_PIXEL_ID`) and Google Analytics 4 (`NEXT_PUBLIC_GA_MEASUREMENT_ID`) event tracking hooks.
+### 6. Advanced SEO & JSON-LD Structured Data
+- **High-Intent Metadata**: Built-in keywords targeting local and diaspora buyers (*"Mari Realty"*, *"Mari Realty Nigeria"*, *"Real Estate Cashback Lagos"*, *"Zylus Cooperative Realtor"*, *"Land for sale in Epe and Lekki"*).
+- **Social Sharing Previews**: Configured OpenGraph and Twitter cards (1200x630) for WhatsApp, Facebook, and X.
+- **Rich Snippets & Knowledge Graph**: Injected `RealEstateAgent` and `LocalBusiness` JSON-LD schemas in root layout and `Product` / `RealEstateListing` schemas in detail views.
+- **Dynamic Sitemap & Robots**: Fully automated `sitemap.xml` that auto-indexes static landing pages and Sanity listing records, with `robots.txt` granting crawling access to Googlebot, Bingbot, and Meta crawlers.
+
+### 7. Google Search Ads & Meta Pixel Conversion Engine
+- Omnichannel event dispatcher (`src/lib/tracking.ts`) firing simultaneously to `window.dataLayer`, Google Analytics 4 (`gtag`), and Meta Pixel (`fbq`).
+- Standard conversion events wired for ad attribution: `Lead` / `generate_lead` on form submit, `InitiateCheckout` / `begin_checkout` on Yield Calculator projections, and `Contact` on WhatsApp CTAs.
+
+### 8. Core Web Vitals (90+ Scores) Optimizations
+- **LCP**: Priority hero image with responsive `sizes` attribute, font optimization via `next/font` with `display: swap`, and preconnect resource hints for Sanity CDN and Google Tag Manager.
+- **INP**: Lifecycle visibility listener in Three.js hero canvas to halt animation loops when tabs are inactive, protecting the main thread.
+- **CLS**: Zero Cumulative Layout Shift via strict aspect-ratio containers (`aspect-[16/9]`, `aspect-[3/4]`, `aspect-square`) across listing cards and flyer grids.
+- **Analytics & Observability**: Vercel Web Analytics (`@vercel/analytics`) and Vercel Speed Insights (`@vercel/speed-insights`).
 
 ---
 

@@ -11,9 +11,44 @@ import { ShieldCheck, Filter, Search } from 'lucide-react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Verified Property Inventory & Land Banking | MariRealty',
+  title: 'Verified Property Inventory & Land for Sale in Epe & Lekki | MariRealty',
   description:
-    'Browse accredited Nigerian real estate listings: Governor’s Consent terraces, Gazette and C of O land across prime investment corridors, plus RECB cooperative cashback allocations.',
+    'Browse accredited Nigerian real estate listings: Governor’s Consent terraces, Gazette and C of O land for sale in Epe and Lekki, plus RECB cooperative cashback allocations.',
+  keywords: [
+    'Land for sale in Epe and Lekki',
+    'Mari Realty properties',
+    'buy land in Epe Lagos',
+    'Lekki real estate',
+    'Governor’s Consent property Lagos',
+    'C of O land Nigeria',
+    'RECB cooperative real estate',
+  ],
+  alternates: {
+    canonical: 'https://marirealty.ng/properties',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://marirealty.ng/properties',
+    title: 'Verified Property Inventory & Land Banking | MariRealty',
+    description:
+      'Browse title-verified property listings with authentic Governor’s Consent and C of O titles across prime Nigerian corridors.',
+    images: [
+      {
+        url: '/assets/branding/realtor-hero.webp',
+        width: 1200,
+        height: 630,
+        alt: 'MariRealty Verified Property Inventory',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@MaryAkohRealty',
+    title: 'Verified Property Inventory & Land Banking | MariRealty',
+    description:
+      'Title-verified residential plots, terraces, and commercial land with institutional legal backing.',
+    images: ['/assets/branding/realtor-hero.webp'],
+  },
 };
 
 async function getProperties(): Promise<Property[]> {

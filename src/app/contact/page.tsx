@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/InstagramIcon';
 import { generateWhatsAppLink } from '@/lib/utils';
-import { trackWhatsAppClick } from '@/lib/tracking';
+import { trackWhatsAppClick, trackLead, trackContact } from '@/lib/tracking';
 import { SITE_CONFIG } from '@/lib/constants';
 
 export default function ContactPage() {
@@ -55,6 +55,10 @@ export default function ContactPage() {
 
       if (res.ok) {
         setStatus('success');
+        trackLead('contact_form', formData.budget, formData.interest, {
+          name: formData.name,
+          phone: formData.phone,
+        });
       } else {
         setStatus('error');
       }
@@ -127,6 +131,7 @@ export default function ContactPage() {
             {/* Direct Phone */}
             <a
               href={`tel:+${phone}`}
+              onClick={() => trackContact('direct_phone')}
               className="flex items-center gap-4 rounded-2xl border border-[#E2E8F0] bg-white p-5 transition hover:border-[#D4AF37]"
             >
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0B192C] text-[#D4AF37] shadow-md">

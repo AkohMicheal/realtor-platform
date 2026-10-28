@@ -25,9 +25,44 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'RECB Cooperative Real Estate Cashback Investment (30%-37% Yield) | MariRealty',
+  title: 'Real Estate Cashback Lagos & Nigeria (30%-37% Yield) | RECB Cooperative',
   description:
-    'Learn how the Lagos State Registered RECB Real Estate Cashback scheme (LSCS 18176) delivers asset-backed passive dividends with post-dated cheques and legal deeds.',
+    'Learn how the Lagos State Registered RECB Real Estate Cashback scheme (LSCS 18176) delivers asset-backed 30%-37% passive dividends with post-dated cheques and legal deeds in partnership with Zylus Group.',
+  keywords: [
+    'Real Estate Cashback Lagos',
+    'Zylus Cooperative Realtor',
+    'RECB cashback',
+    'cooperative real estate Nigeria',
+    'high-yield real estate dividends Nigeria',
+    'post-dated cheque investment Nigeria',
+    'land banking cashback',
+  ],
+  alternates: {
+    canonical: 'https://marirealty.ng/investment',
+  },
+  openGraph: {
+    type: 'website',
+    url: 'https://marirealty.ng/investment',
+    title: 'Real Estate Cashback (30%-37% Yield) | MariRealty',
+    description:
+      'Eliminate property speculation. Lock in 30% to 37% annualized cashback dividends backed by tangible land reserves, enforceable contracts, and post-dated cheques.',
+    images: [
+      {
+        url: '/assets/branding/realtor-hero.webp',
+        width: 1200,
+        height: 630,
+        alt: 'RECB Cooperative Real Estate Cashback Investment',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@MaryAkohRealty',
+    title: 'Real Estate Cashback Lagos & Nigeria | MariRealty',
+    description:
+      'Cooperative cashback land banking delivering 30%-37% returns with Tier-1 post-dated cheques.',
+    images: ['/assets/branding/realtor-hero.webp'],
+  },
 };
 
 const FAQ_ITEMS = [

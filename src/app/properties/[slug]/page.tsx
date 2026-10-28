@@ -5,6 +5,8 @@ import { Navigation } from '@/components/shared/Navigation';
 import { Footer } from '@/components/shared/Footer';
 import { FloatingContact } from '@/components/shared/FloatingContact';
 import { PropertyGallery } from '@/components/listings/PropertyGallery';
+import { PropertyJsonLd } from '@/components/seo/PropertyJsonLd';
+import { createImageUrlBuilder } from '@sanity/image-url';
 import { client } from '@/lib/sanity/client';
 import { PROPERTY_BY_SLUG_QUERY } from '@/lib/sanity/queries';
 import { MOCK_PROPERTIES } from '@/lib/mockData';
@@ -68,6 +70,19 @@ export async function generateStaticParams() {
   }));
 }
 
+const imgBuilder = createImageUrlBuilder(client);
+
+function getPropertyImageUrl(image: any): string {
+  if (!image) return 'https://marirealty.ng/assets/branding/realtor-hero.webp';
+  if (typeof image === 'string') return image;
+  if (image.asset?.url) return image.asset.url;
+  try {
+    return imgBuilder.image(image).width(1200).height(630).fit('crop').url();
+  } catch {
+    return 'https://marirealty.ng/assets/branding/realtor-hero.webp';
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const property = await getProperty(slug);
@@ -76,9 +91,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Property Not Found | MariRealty' };
   }
 
+  const imageUrl = getPropertyImageUrl(property.mainImage);
+  const title = `${property.title} — Verified Real Estate in ${property.location}`;
+  const description =
+    property.description ||
+    `Verified Nigerian real estate investment: ${property.location}. Legal Title: ${property.titleType}. Price: ₦${property.price.toLocaleString()}.`;
+
   return {
-    title: `${property.title} | MariRealty`,
-    description: property.description || `Verified property: ${property.location}. Title: ${property.titleType}`,
+    title,
+    description,
+    alternates: {
+      canonical: `https://marirealty.ng/properties/${slug}`,
+    },
+    openGraph: {
+      type: 'website',
+      url: `https://marirealty.ng/properties/${slug}`,
+      title: `${property.title} | MariRealty Verified Investment`,
+      description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: property.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@MaryAkohRealty',
+      title: `${property.title} | MariRealty`,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 
@@ -158,6 +203,12 @@ async function PropertyDetails({ params }: Props) {
 
   return (
     <>
+      {/* Property Rich Snippet Schema */}
+      <PropertyJsonLd
+        property={property}
+        imageUrl={getPropertyImageUrl(property.mainImage)}
+      />
+
       {/* Header / Breadcrumb */}
       <div className="bg-[#0B192C] pt-28 pb-8 text-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

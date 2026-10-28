@@ -9,7 +9,7 @@ import {
   Share2,
 } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/InstagramIcon';
-import { trackWhatsAppClick } from '@/lib/tracking';
+import { trackWhatsAppClick, trackContact } from '@/lib/tracking';
 import { generateWhatsAppLink } from '@/lib/utils';
 import { SITE_CONFIG } from '@/lib/constants';
 
@@ -60,23 +60,23 @@ export function FloatingContact() {
       href: `tel:+${phone}`,
       icon: Phone,
       bg: 'bg-[#0B192C] text-white hover:bg-[#132D4A]',
-      onClick: () => {},
+      onClick: () => trackContact('floating_phone'),
     },
     {
       label: 'Schedule Zoom Review',
       subtext: '15-min diaspora consultation',
-      href: '/contact#schedule',
+      href: '/contact',
       icon: Calendar,
       bg: 'bg-[#D4AF37] text-[#0B192C] hover:bg-[#C5A059]',
-      onClick: () => {},
+      onClick: () => trackContact('floating_zoom'),
     },
     {
       label: 'Instagram Direct',
-      subtext: '@mari.realty',
-      href: 'https://instagram.com/marirealty',
+      subtext: SITE_CONFIG.instagramHandle,
+      href: SITE_CONFIG.instagram,
       icon: InstagramIcon,
       bg: 'bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white hover:opacity-90',
-      onClick: () => {},
+      onClick: () => trackContact('floating_instagram'),
     },
   ];
 

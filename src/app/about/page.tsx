@@ -18,9 +18,44 @@ import {
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About Mary Akoh | Award-Winning Real Estate Strategist | MariRealty',
+  title: 'About Mary Akoh | Zylus Cooperative Realtor & Strategist | MariRealty',
   description:
-    'Meet Mary Akoh, accredited real estate consultant affiliated with Zylus Group and RECB (LSCS 18176). Awarded Best Behaved Female BA across active subsidiaries (15th March, 2026).',
+    'Meet Mary Akoh, accredited real estate consultant affiliated with Zylus Group and RECB (LSCS 18176). Awarded Best Behaved Female BA across active subsidiaries (15th March, 2026). Specializing in diaspora wealth advisory and verified titles.',
+  keywords: [
+    'Mary Akoh',
+    'Mary Akoh Realtor',
+    'Mari Realty Nigeria',
+    'Zylus Cooperative Realtor',
+    'realtor in Lagos',
+    'diaspora real estate advisor Nigeria',
+  ],
+  alternates: {
+    canonical: 'https://marirealty.ng/about',
+  },
+  openGraph: {
+    type: 'profile',
+    url: 'https://marirealty.ng/about',
+    title: 'About Mary Akoh | Principal Consultant at MariRealty',
+    description:
+      'Award-winning Nigerian real estate consultant affiliated with Zylus Group and RECB. Guiding diaspora and high-ticket capital into verified land banking.',
+    images: [
+      {
+        url: '/assets/branding/realtor-hero.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Mary Akoh - Principal Real Estate Consultant',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@MaryAkohRealty',
+    creator: '@MaryAkohRealty',
+    title: 'About Mary Akoh | MariRealty',
+    description:
+      'Accredited real estate consultant affiliated with Zylus Group and RECB (LSCS 18176).',
+    images: ['/assets/branding/realtor-hero.webp'],
+  },
 };
 
 export default function AboutPage() {

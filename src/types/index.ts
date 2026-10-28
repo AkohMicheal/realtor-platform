@@ -34,6 +34,7 @@ export interface Property {
   status: "available" | "selling-fast" | "sold-out";
   featured: boolean;
   description?: string;
+  _createdAt?: string;
 }
 
 export interface PromotionalFlyer {

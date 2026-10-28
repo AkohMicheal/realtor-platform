@@ -208,8 +208,10 @@ export default function HomePage() {
                       alt={`${SITE_CONFIG.consultantName} - Principal Real Estate Consultant, ${SITE_CONFIG.name}`}
                       width={450}
                       height={520}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 450px"
                       className="w-full h-[360px] object-cover object-top transition-transform duration-500 group-hover:scale-105"
                       priority
+                      fetchPriority="high"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C] via-transparent to-transparent opacity-60" />
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">

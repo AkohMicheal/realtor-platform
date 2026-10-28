@@ -2,7 +2,7 @@
 
 import { useState, useId, useEffect } from 'react';
 import { formatNaira, generateWhatsAppLink } from '@/lib/utils';
-import { trackCalculatorUsed, trackWhatsAppClick } from '@/lib/tracking';
+import { trackCalculatorUsed, trackWhatsAppClick, trackInitiateCheckout } from '@/lib/tracking';
 import { SITE_CONFIG } from '@/lib/constants';
 import {
   Calculator,
@@ -295,7 +295,10 @@ export function YieldCalculator() {
           href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackWhatsAppClick('YieldCalculator_Projection')}
+          onClick={() => {
+            trackWhatsAppClick('YieldCalculator_Projection');
+            trackInitiateCheckout(principal, tenure, annualRate);
+          }}
           className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-4 text-center font-heading text-sm sm:text-base font-bold text-white shadow-lg transition-all duration-200 hover:bg-[#20ba5a] hover:shadow-xl active:scale-[0.99]"
         >
           Send This Projection to My WhatsApp <ArrowRight className="h-4 w-4" />
